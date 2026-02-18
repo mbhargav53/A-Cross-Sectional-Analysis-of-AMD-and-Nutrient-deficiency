@@ -1,0 +1,2271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMD & Vitamin A Deficiency — India Health Analytics</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --accent: #e8a020;
+    --accent2: #3b82f6;
+    --accent3: #10b981;
+    --danger: #ef4444;
+    --warn: #f59e0b;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --border: rgba(255,255,255,0.07);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ANIMATED BG */
+  body::before {
+    content:'';
+    position:fixed;
+    inset:0;
+    background: radial-gradient(ellipse 80% 50% at 20% 10%, rgba(59,130,246,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 80% 80%, rgba(232,160,32,0.07) 0%, transparent 60%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrapper { position:relative; z-index:1; max-width:1400px; margin:0 auto; padding:0 2rem; }
+
+  /* HEADER */
+  header {
+    padding: 2.5rem 0 2rem;
+    border-bottom: 1px solid var(--border);
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem;
+  }
+  .logo-area { display:flex; align-items:center; gap:1rem; }
+  .eye-icon {
+    width:48px; height:48px; background: linear-gradient(135deg,#e8a020,#f59e0b);
+    border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.5rem;
+    box-shadow: 0 0 24px rgba(232,160,32,0.4);
+    animation: pulse 3s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{box-shadow:0 0 24px rgba(232,160,32,0.4)} 50%{box-shadow:0 0 40px rgba(232,160,32,0.7)} }
+  header h1 {
+    font-family:'Playfair Display',serif;
+    font-size:1.6rem; font-weight:900; color:#fff;
+    line-height:1.1;
+  }
+  header h1 span { color:var(--accent); }
+  .badge {
+    background: rgba(59,130,246,0.15); border:1px solid rgba(59,130,246,0.3);
+    color:#93c5fd; padding:.4rem 1rem; border-radius:999px; font-size:.75rem;
+    font-family:'IBM Plex Mono',monospace; letter-spacing:1px;
+  }
+
+  /* NAV TABS */
+  .tabs {
+    display:flex; gap:.5rem; margin: 2rem 0; flex-wrap:wrap;
+  }
+  .tab {
+    padding:.6rem 1.4rem; border-radius:8px; cursor:pointer; font-size:.85rem; font-weight:500;
+    border: 1px solid var(--border); background:var(--surface); color:var(--muted);
+    transition:all .25s ease;
+  }
+  .tab:hover { color:var(--text); border-color:rgba(255,255,255,0.15); }
+  .tab.active {
+    background: linear-gradient(135deg,rgba(232,160,32,0.2),rgba(245,158,11,0.1));
+    border-color:var(--accent); color:var(--accent);
+  }
+
+  /* SECTION */
+  .section { display:none; animation: fadeUp .4s ease; }
+  .section.active { display:block; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+
+  /* KPI GRID */
+  .kpi-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1rem; margin-bottom:2rem; }
+  .kpi {
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:1.4rem 1.6rem; position:relative; overflow:hidden; transition:transform .2s;
+  }
+  .kpi:hover { transform:translateY(-3px); }
+  .kpi::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background: var(--kpi-color, var(--accent));
+  }
+  .kpi-label { font-size:.75rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:.5rem; }
+  .kpi-value { font-family:'Playfair Display',serif; font-size:2rem; font-weight:700; color:#fff; }
+  .kpi-sub { font-size:.75rem; color:var(--muted); margin-top:.3rem; }
+
+  /* CHART CONTAINER */
+  .chart-row { display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:1.5rem; }
+  @media(max-width:768px) { .chart-row { grid-template-columns:1fr; } }
+  .chart-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.5rem;
+  }
+  .card-title {
+    font-size:.8rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted);
+    margin-bottom:1.2rem; font-family:'IBM Plex Mono',monospace;
+  }
+
+  /* BAR CHART */
+  .bar-chart { display:flex; flex-direction:column; gap:.7rem; }
+  .bar-row { display:flex; align-items:center; gap:.8rem; }
+  .bar-label { width:90px; font-size:.78rem; color:var(--muted); text-align:right; flex-shrink:0; }
+  .bar-track { flex:1; height:28px; background:rgba(255,255,255,0.05); border-radius:6px; overflow:hidden; position:relative; }
+  .bar-fill {
+    height:100%; border-radius:6px; display:flex; align-items:center; padding-left:8px;
+    font-size:.72rem; font-weight:600; color:#fff; white-space:nowrap;
+    transition: width 1s cubic-bezier(.23,1,.32,1);
+    background: var(--bar-color, linear-gradient(90deg,#e8a020,#f59e0b));
+  }
+  .bar-val { margin-left:6px; font-size:.75rem; color:var(--muted); }
+
+  /* DONUT */
+  .donut-wrap { display:flex; align-items:center; gap:2rem; }
+  .donut-svg { flex-shrink:0; }
+  .donut-legend { display:flex; flex-direction:column; gap:.6rem; }
+  .legend-item { display:flex; align-items:center; gap:.6rem; font-size:.8rem; color:var(--muted); }
+  .legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+
+  /* TABLE */
+  .data-table { width:100%; border-collapse:collapse; font-size:.83rem; }
+  .data-table th {
+    text-align:left; padding:.8rem 1rem; background:rgba(255,255,255,0.04);
+    color:var(--muted); font-weight:500; border-bottom:1px solid var(--border);
+    font-family:'IBM Plex Mono',monospace; font-size:.72rem; text-transform:uppercase; letter-spacing:1px;
+  }
+  .data-table td { padding:.8rem 1rem; border-bottom:1px solid var(--border); }
+  .data-table tr:hover td { background:rgba(255,255,255,0.02); }
+  .pill {
+    display:inline-block; padding:.2rem .6rem; border-radius:999px; font-size:.7rem; font-weight:600;
+  }
+  .pill-red { background:rgba(239,68,68,0.15); color:#fca5a5; }
+  .pill-yellow { background:rgba(245,158,11,0.15); color:#fcd34d; }
+  .pill-green { background:rgba(16,185,129,0.15); color:#6ee7b7; }
+  .pill-blue { background:rgba(59,130,246,0.15); color:#93c5fd; }
+
+  /* PRESCRIPTION CARD */
+  .rx-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.2rem; margin-bottom:1.5rem; }
+  .rx-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.5rem;
+    position:relative; overflow:hidden;
+  }
+  .rx-card::after {
+    content: 'Rx'; position:absolute; top:1rem; right:1.2rem;
+    font-family:'Playfair Display',serif; font-size:2rem; font-weight:900;
+    color:rgba(255,255,255,0.04); pointer-events:none;
+  }
+  .rx-header { display:flex; align-items:center; gap:.8rem; margin-bottom:1.2rem; }
+  .rx-icon { font-size:1.4rem; }
+  .rx-title { font-weight:600; font-size:.95rem; color:#fff; }
+  .rx-subtitle { font-size:.75rem; color:var(--muted); }
+  .rx-section-label {
+    font-size:.68rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--accent);
+    font-family:'IBM Plex Mono',monospace; margin:.9rem 0 .4rem;
+  }
+  .rx-item { font-size:.82rem; color:var(--text); line-height:1.7; padding-left:.8rem; border-left:2px solid rgba(232,160,32,0.3); margin-bottom:.3rem; }
+  .rx-dose { font-family:'IBM Plex Mono',monospace; color:var(--accent2); font-size:.75rem; }
+  .rx-warning {
+    background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.2);
+    border-radius:8px; padding:.8rem 1rem; margin-top:1rem; font-size:.78rem; color:#fca5a5;
+  }
+  .rx-note {
+    background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.2);
+    border-radius:8px; padding:.8rem 1rem; margin-top:.8rem; font-size:.78rem; color:#6ee7b7;
+  }
+
+  /* HEATMAP */
+  .heatmap { display:grid; grid-template-columns:repeat(5,1fr); gap:.5rem; }
+  .hm-cell {
+    border-radius:6px; padding:.8rem .4rem; text-align:center; font-size:.7rem; font-weight:600;
+    color:#fff; cursor:pointer; transition:transform .15s;
+  }
+  .hm-cell:hover { transform:scale(1.05); }
+  .hm-state { font-size:.62rem; font-weight:400; color:rgba(255,255,255,0.7); margin-top:.2rem; }
+
+  /* INFO BOX */
+  .info-box {
+    background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(16,185,129,0.05));
+    border:1px solid rgba(59,130,246,0.2); border-radius:12px; padding:1.4rem 1.6rem; margin-bottom:1.5rem;
+  }
+  .info-box h3 { font-family:'Playfair Display',serif; font-size:1.1rem; color:#fff; margin-bottom:.7rem; }
+  .info-box p { font-size:.84rem; color:var(--muted); line-height:1.8; }
+
+  /* TIMELINE */
+  .timeline { position:relative; padding-left:1.5rem; }
+  .timeline::before { content:''; position:absolute; left:6px; top:0; bottom:0; width:2px; background:var(--border); }
+  .tl-item { position:relative; margin-bottom:1.5rem; }
+  .tl-dot {
+    position:absolute; left:-1.5rem; top:4px; width:14px; height:14px;
+    border-radius:50%; border:2px solid var(--accent); background:var(--bg);
+  }
+  .tl-dot.active { background:var(--accent); }
+  .tl-title { font-size:.85rem; font-weight:600; color:#fff; margin-bottom:.3rem; }
+  .tl-desc { font-size:.78rem; color:var(--muted); line-height:1.6; }
+
+  /* FOOTER */
+  footer {
+    margin-top:3rem; padding:1.5rem 0; border-top:1px solid var(--border);
+    text-align:center; font-size:.75rem; color:var(--muted);
+    font-family:'IBM Plex Mono',monospace;
+  }
+
+  /* PROGRESS RING */
+  .ring-wrap { display:flex; flex-direction:column; align-items:center; gap:.5rem; }
+  .ring-label { font-size:.72rem; color:var(--muted); text-align:center; max-width:80px; }
+  .ring-value { font-size:1rem; font-weight:700; color:#fff; }
+
+  .full-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.5rem; margin-bottom:1.5rem;
+  }
+
+  /* FOOD CARDS */
+  .food-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:1rem; margin-bottom:1.5rem; }
+  .food-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:1.2rem; position:relative; overflow:hidden; transition:transform .2s, box-shadow .2s;
+    cursor:default;
+  }
+  .food-card:hover { transform:translateY(-4px); box-shadow:0 12px 32px rgba(0,0,0,0.4); }
+  .food-card::before {
+    content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    background: var(--fc, linear-gradient(90deg,#e8a020,#f59e0b));
+  }
+  .food-emoji { font-size:2rem; margin-bottom:.6rem; display:block; }
+  .food-name { font-weight:700; font-size:.92rem; color:#fff; margin-bottom:.2rem; }
+  .food-hindi { font-size:.72rem; color:var(--accent); font-family:'IBM Plex Mono',monospace; margin-bottom:.6rem; }
+  .food-nutrient { font-size:.72rem; color:var(--accent2); margin-bottom:.5rem; font-weight:500; }
+  .food-dose { font-size:.75rem; color:var(--muted); line-height:1.6; }
+  .food-benefit {
+    margin-top:.7rem; padding:.4rem .7rem; border-radius:6px;
+    background:rgba(16,185,129,0.08); border:1px solid rgba(16,185,129,0.15);
+    font-size:.68rem; color:#6ee7b7;
+  }
+
+  /* MEAL PLAN */
+  .meal-plan { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; margin-bottom:1.5rem; }
+  .meal-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.3rem;
+  }
+  .meal-time { font-size:.68rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--accent); font-family:'IBM Plex Mono',monospace; margin-bottom:.5rem; }
+  .meal-title { font-weight:700; font-size:.9rem; color:#fff; margin-bottom:.7rem; }
+  .meal-item { display:flex; align-items:flex-start; gap:.5rem; font-size:.78rem; color:var(--muted); margin-bottom:.4rem; line-height:1.5; }
+  .meal-item::before { content:'→'; color:var(--accent); flex-shrink:0; font-size:.7rem; margin-top:2px; }
+  .meal-nutrients { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.8rem; }
+  .mn-tag {
+    font-size:.65rem; padding:.2rem .5rem; border-radius:999px; font-weight:600;
+    background:rgba(59,130,246,0.12); color:#93c5fd; border:1px solid rgba(59,130,246,0.2);
+  }
+
+  /* AYURVEDA SECTION */
+  .ayur-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:1rem; margin-bottom:1.5rem; }
+  .ayur-card {
+    background:linear-gradient(135deg,rgba(232,160,32,0.06),rgba(16,185,129,0.04));
+    border:1px solid rgba(232,160,32,0.15); border-radius:12px; padding:1.3rem;
+    transition:transform .2s;
+  }
+  .ayur-card:hover { transform:translateY(-3px); }
+  .ayur-header { display:flex; align-items:center; gap:.7rem; margin-bottom:.8rem; }
+  .ayur-name { font-weight:700; color:#fff; font-size:.9rem; }
+  .ayur-latin { font-size:.68rem; color:var(--muted); font-style:italic; }
+  .ayur-body { font-size:.78rem; color:var(--muted); line-height:1.7; }
+  .ayur-how { margin-top:.7rem; font-size:.75rem; color:var(--accent2); font-weight:500; }
+  .ayur-caution { margin-top:.5rem; font-size:.7rem; color:#fca5a5; }
+
+  /* NUTRIENT PROGRESS */
+  .nutrient-bars { display:flex; flex-direction:column; gap:.9rem; }
+  .nb-row { display:flex; align-items:center; gap:.8rem; }
+  .nb-label { width:140px; font-size:.78rem; color:var(--muted); flex-shrink:0; }
+  .nb-track { flex:1; height:20px; background:rgba(255,255,255,0.05); border-radius:10px; overflow:hidden; position:relative; }
+  .nb-fill { height:100%; border-radius:10px; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; font-size:.65rem; font-weight:700; color:#fff; transition:width 1.2s cubic-bezier(.23,1,.32,1); }
+  .nb-rda { margin-left:.5rem; font-size:.68rem; color:var(--muted); width:80px; flex-shrink:0; }
+
+  /* RECIPE CARD */
+  .recipe-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:1.2rem; margin-bottom:1.5rem; }
+  .recipe-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:1.4rem;
+    position:relative;
+  }
+  .recipe-title { font-family:'Playfair Display',serif; font-size:1.05rem; color:#fff; margin-bottom:.3rem; }
+  .recipe-subtitle { font-size:.73rem; color:var(--accent); margin-bottom:1rem; font-family:'IBM Plex Mono',monospace; }
+  .recipe-step { display:flex; gap:.7rem; margin-bottom:.6rem; align-items:flex-start; }
+  .step-num { width:20px; height:20px; border-radius:50%; background:rgba(232,160,32,0.2); border:1px solid rgba(232,160,32,0.4); display:flex; align-items:center; justify-content:center; font-size:.62rem; font-weight:700; color:var(--accent); flex-shrink:0; margin-top:1px; }
+  .step-text { font-size:.78rem; color:var(--muted); line-height:1.6; }
+  .recipe-stat { display:flex; gap:.7rem; margin-top:1rem; flex-wrap:wrap; }
+  .rstat { font-size:.68rem; padding:.25rem .6rem; border-radius:999px; background:rgba(255,255,255,0.05); color:var(--muted); }
+
+  /* SECTION DIVIDER */
+  .section-divider {
+    display:flex; align-items:center; gap:1rem; margin:2rem 0 1.2rem;
+  }
+  .section-divider h2 { font-family:'Playfair Display',serif; font-size:1.3rem; color:#fff; white-space:nowrap; }
+  .section-divider::after { content:''; flex:1; height:1px; background:var(--border); }
+
+  /* scrollbar */
+  ::-webkit-scrollbar { width:6px; }
+  ::-webkit-scrollbar-track { background:var(--bg); }
+  ::-webkit-scrollbar-thumb { background:var(--surface2); border-radius:3px; }
+
+  /* ===== SYMPTOM CHECKER MODULE ===== */
+  .symptom-intro {
+    background: linear-gradient(135deg, rgba(139,92,246,0.1), rgba(59,130,246,0.06));
+    border: 1px solid rgba(139,92,246,0.25); border-radius:14px; padding:1.6rem 2rem; margin-bottom:2rem;
+    display:flex; align-items:flex-start; gap:1.2rem;
+  }
+  .symptom-intro-icon { font-size:2.2rem; flex-shrink:0; }
+  .symptom-intro h3 { font-family:'Playfair Display',serif; font-size:1.15rem; color:#fff; margin-bottom:.5rem; }
+  .symptom-intro p { font-size:.82rem; color:var(--muted); line-height:1.8; }
+
+  /* Nutrient filter pills */
+  .nutrient-filters { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:2rem; }
+  .nf-pill {
+    padding:.45rem 1.1rem; border-radius:999px; border:1px solid var(--border);
+    background:var(--surface); color:var(--muted); font-size:.78rem; font-weight:500; cursor:pointer;
+    transition:all .2s ease; display:flex; align-items:center; gap:.4rem;
+  }
+  .nf-pill:hover { color:var(--text); border-color:rgba(255,255,255,0.2); }
+  .nf-pill.active { color:#fff; border-color:var(--nf-color,var(--accent)); background:rgba(232,160,32,0.12); }
+  .nf-pill .nf-dot { width:8px; height:8px; border-radius:50%; background:var(--nf-color,var(--accent)); }
+
+  /* Symptom cards grid */
+  .symptom-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.4rem; margin-bottom:2rem; }
+  .symptom-card {
+    background:var(--surface); border:1px solid var(--border); border-radius:14px;
+    overflow:hidden; transition:transform .25s ease, box-shadow .25s ease;
+    cursor:default; position:relative;
+  }
+  .symptom-card:hover { transform:translateY(-5px); box-shadow:0 16px 40px rgba(0,0,0,0.5); }
+  .symptom-card[data-nutrient].hidden { display:none; }
+
+  .symptom-card-img {
+    width:100%; height:180px; object-fit:cover; display:block;
+    filter: saturate(0.85) contrast(1.05);
+    transition: transform .4s ease, filter .4s ease;
+  }
+  .symptom-card:hover .symptom-card-img { transform:scale(1.04); filter:saturate(1.1) contrast(1.05); }
+
+  .symptom-img-wrap { overflow:hidden; position:relative; height:180px; }
+  .symptom-img-overlay {
+    position:absolute; inset:0;
+    background:linear-gradient(to top, rgba(17,24,39,0.95) 0%, rgba(17,24,39,0.4) 50%, transparent 100%);
+    pointer-events:none;
+  }
+  .symptom-nutrient-tag {
+    position:absolute; top:.8rem; left:.8rem;
+    padding:.25rem .75rem; border-radius:999px; font-size:.65rem; font-weight:700;
+    letter-spacing:0.8px; text-transform:uppercase; font-family:'IBM Plex Mono',monospace;
+    border:1px solid; backdrop-filter:blur(8px);
+  }
+  .symptom-severity {
+    position:absolute; top:.8rem; right:.8rem;
+    width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-size:.9rem; backdrop-filter:blur(8px); border:1px solid rgba(255,255,255,0.15);
+  }
+
+  .symptom-card-body { padding:1.2rem 1.4rem 1.4rem; }
+  .symptom-name { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:#fff; margin-bottom:.3rem; }
+  .symptom-hindi { font-size:.68rem; color:var(--accent); font-family:'IBM Plex Mono',monospace; letter-spacing:.5px; margin-bottom:.7rem; }
+  .symptom-desc { font-size:.79rem; color:var(--muted); line-height:1.7; margin-bottom:1rem; }
+
+  .symptom-details { display:flex; flex-direction:column; gap:.5rem; }
+  .sd-row { display:flex; align-items:flex-start; gap:.6rem; font-size:.75rem; }
+  .sd-label { color:var(--accent2); font-weight:600; min-width:70px; flex-shrink:0; font-family:'IBM Plex Mono',monospace; font-size:.68rem; }
+  .sd-val { color:var(--muted); line-height:1.5; }
+
+  .symptom-action {
+    margin-top:1rem; padding:.6rem 1rem; border-radius:8px; font-size:.73rem; font-weight:600;
+    display:flex; align-items:center; gap:.5rem;
+    background:rgba(255,255,255,0.04); border:1px solid var(--border); color:var(--text);
+  }
+  .symptom-action .sa-icon { font-size:.9rem; }
+
+  /* Severity legend */
+  .severity-legend { display:flex; gap:1.2rem; flex-wrap:wrap; align-items:center; margin-bottom:1.5rem; }
+  .sl-item { display:flex; align-items:center; gap:.5rem; font-size:.75rem; color:var(--muted); }
+  .sl-dot { width:12px; height:12px; border-radius:50%; }
+
+  /* Deficiency comparison table */
+  .deficiency-overview {
+    background:var(--surface); border:1px solid var(--border); border-radius:12px;
+    padding:1.5rem; margin-bottom:1.5rem; overflow-x:auto;
+  }
+  .def-table { width:100%; border-collapse:collapse; font-size:.8rem; min-width:700px; }
+  .def-table th {
+    text-align:left; padding:.75rem 1rem; border-bottom:1px solid var(--border);
+    color:var(--muted); font-family:'IBM Plex Mono',monospace; font-size:.68rem;
+    text-transform:uppercase; letter-spacing:1px;
+  }
+  .def-table td { padding:.75rem 1rem; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:top; }
+  .def-table tr:last-child td { border-bottom:none; }
+  .def-table tr:hover td { background:rgba(255,255,255,0.02); }
+  .def-nut-name { font-weight:700; color:#fff; }
+  .def-nut-sub { font-size:.68rem; color:var(--muted); margin-top:.2rem; }
+  .risk-bar { display:flex; gap:3px; margin-top:.4rem; }
+  .risk-seg { height:6px; border-radius:3px; flex:1; background:rgba(255,255,255,0.07); }
+  .risk-seg.filled { }
+
+  /* Self-check section */
+  .self-check-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:1rem; margin-bottom:1.5rem; }
+  .sc-card {
+    border-radius:12px; padding:1.3rem; border:1px solid;
+    position:relative; overflow:hidden;
+  }
+  .sc-card::before {
+    content:''; position:absolute; top:-20px; right:-20px;
+    width:80px; height:80px; border-radius:50%;
+    background:radial-gradient(circle, var(--sc-glow, rgba(232,160,32,0.2)) 0%, transparent 70%);
+  }
+  .sc-emoji { font-size:1.8rem; margin-bottom:.6rem; }
+  .sc-title { font-weight:700; font-size:.9rem; color:#fff; margin-bottom:.8rem; }
+  .sc-checks { display:flex; flex-direction:column; gap:.45rem; }
+  .sc-item { display:flex; align-items:center; gap:.6rem; font-size:.76rem; color:var(--muted); }
+  .sc-check { width:16px; height:16px; border-radius:4px; border:1.5px solid; display:flex; align-items:center; justify-content:center; flex-shrink:0; font-size:.6rem; }
+</style>
+</head>
+<body>
+
+<div class="wrapper">
+  <header>
+    <div class="logo-area">
+      <div class="eye-icon">👁️</div>
+      <div>
+        <h1>AMD & Vitamin <span>A</span> Deficiency in Older People</h1>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:.2rem;">India Health Analytics Dashboard · Age 60+</div>
+      </div>
+    </div>
+    <div style="display:flex;gap:.8rem;align-items:center;flex-wrap:wrap;">
+      <span class="badge">ICMR · NFHS-5 Data</span>
+      <span class="badge" style="background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.3);color:#6ee7b7;">2019–2024</span>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <div class="tab active" onclick="showTab('overview')">📊 Overview</div>
+    <div class="tab" onclick="showTab('amd')">🔬 AMD Analysis</div>
+    <div class="tab" onclick="showTab('vitA')">💊 Vitamin A Deficiency</div>
+    <div class="tab" onclick="showTab('statewise')">🗺️ State-wise Data</div>
+    <div class="tab" onclick="showTab('prescription')">📋 Prescription & Treatment</div>
+    <div class="tab" onclick="showTab('prevention')">🛡️ Prevention Protocol</div>
+    <div class="tab" onclick="showTab('symptoms')">🩺 Symptom Checker</div>
+    <div class="tab" onclick="showTab('team')">🎓 Team Details</div>
+  </nav>
+
+  <!-- ===== OVERVIEW ===== -->
+  <section id="overview" class="section active">
+    <div class="info-box">
+      <h3>AMD & Vitamin A Deficiency in Older Indians (Age 60+)</h3>
+      <p>India is home to over <strong style="color:#fff;">153 million people aged 60+</strong> — a number projected to reach 340 million by 2050. This platform presents clinical and epidemiological data specifically focused on Age-related Macular Degeneration (AMD) and Vitamin A Deficiency (VAD) in older adults. In this age group, VAD is often overlooked, yet it significantly worsens AMD outcomes, impairs immunity, and accelerates vision loss. Data sourced from ICMR, NFHS-5 (2019–21), NPCB Annual Report 2023, AIIMS geriatric studies, and WHO India.</p>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi" style="--kpi-color:#e8a020">
+        <div class="kpi-label">AMD Prevalence (Age 60+)</div>
+        <div class="kpi-value">11.8%</div>
+        <div class="kpi-sub">~18 million older Indians affected · Rising yearly</div>
+      </div>
+      <div class="kpi" style="--kpi-color:#ef4444">
+        <div class="kpi-label">VAD in Older Adults (60+)</div>
+        <div class="kpi-value">34%</div>
+        <div class="kpi-sub">Subclinical serum retinol deficiency · AIIMS Geriatric Study</div>
+      </div>
+      <div class="kpi" style="--kpi-color:#3b82f6">
+        <div class="kpi-label">Bilateral Blindness (60+)</div>
+        <div class="kpi-value">2.4M</div>
+        <div class="kpi-sub">AMD is leading cause of central vision loss in elderly</div>
+      </div>
+      <div class="kpi" style="--kpi-color:#10b981">
+        <div class="kpi-label">Night Vision Loss (Elderly)</div>
+        <div class="kpi-value">41%</div>
+        <div class="kpi-sub">Age 70+ report significant difficulty in low-light conditions</div>
+      </div>
+      <div class="kpi" style="--kpi-color:#8b5cf6">
+        <div class="kpi-label">Wet AMD (Age 75+)</div>
+        <div class="kpi-value">26%</div>
+        <div class="kpi-sub">Neovascular AMD — most aggressive form · Needs urgent anti-VEGF</div>
+      </div>
+      <div class="kpi" style="--kpi-color:#f59e0b">
+        <div class="kpi-label">Dietary Vitamin A Inadequacy</div>
+        <div class="kpi-value">58%</div>
+        <div class="kpi-sub">Elderly Indians consume &lt;50% of RDA for Vitamin A (ICMR)</div>
+      </div>
+    </div>
+
+    <div class="chart-row">
+      <div class="chart-card">
+        <div class="card-title">AMD Prevalence by Age Group — India (60+)</div>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">60–64 yrs</div><div class="bar-track"><div class="bar-fill" style="width:38%;--bar-color:linear-gradient(90deg,#3b82f6,#60a5fa)">6.9%</div></div></div>
+          <div class="bar-row"><div class="bar-label">65–69 yrs</div><div class="bar-track"><div class="bar-fill" style="width:53%;--bar-color:linear-gradient(90deg,#e8a020,#f59e0b)">9.7%</div></div></div>
+          <div class="bar-row"><div class="bar-label">70–74 yrs</div><div class="bar-track"><div class="bar-fill" style="width:66%;--bar-color:linear-gradient(90deg,#e8a020,#f59e0b)">12.1%</div></div></div>
+          <div class="bar-row"><div class="bar-label">75–79 yrs</div><div class="bar-track"><div class="bar-fill" style="width:83%;--bar-color:linear-gradient(90deg,#ef4444,#f87171)">15.3%</div></div></div>
+          <div class="bar-row"><div class="bar-label">80–84 yrs</div><div class="bar-track"><div class="bar-fill" style="width:93%;--bar-color:linear-gradient(90deg,#ef4444,#f87171)">17.1%</div></div></div>
+          <div class="bar-row"><div class="bar-label">85+ yrs</div><div class="bar-track"><div class="bar-fill" style="width:100%;--bar-color:linear-gradient(90deg,#dc2626,#ef4444)">18.4%</div></div></div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="card-title">Vitamin A Intake vs RDA — Older Indians by Subgroup</div>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">Urban Men</div><div class="bar-track"><div class="bar-fill" style="width:65%;--bar-color:linear-gradient(90deg,#10b981,#34d399)">65% RDA</div></div></div>
+          <div class="bar-row"><div class="bar-label">Urban Women</div><div class="bar-track"><div class="bar-fill" style="width:58%;--bar-color:linear-gradient(90deg,#3b82f6,#60a5fa)">58% RDA</div></div></div>
+          <div class="bar-row"><div class="bar-label">Rural Men</div><div class="bar-track"><div class="bar-fill" style="width:44%;--bar-color:linear-gradient(90deg,#e8a020,#f59e0b)">44% RDA</div></div></div>
+          <div class="bar-row"><div class="bar-label">Rural Women</div><div class="bar-track"><div class="bar-fill" style="width:36%;--bar-color:linear-gradient(90deg,#ef4444,#f87171)">36% RDA</div></div></div>
+          <div class="bar-row"><div class="bar-label">Widowed / Alone</div><div class="bar-track"><div class="bar-fill" style="width:29%;--bar-color:linear-gradient(90deg,#ef4444,#f87171)">29% RDA</div></div></div>
+          <div class="bar-row"><div class="bar-label">Institutionalised</div><div class="bar-track"><div class="bar-fill" style="width:41%;--bar-color:linear-gradient(90deg,#8b5cf6,#a78bfa)">41% RDA</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-row">
+      <div class="chart-card">
+        <div class="card-title">AMD Type Distribution — Indian Adults 60+</div>
+        <div class="donut-wrap">
+          <svg class="donut-svg" width="130" height="130" viewBox="0 0 130 130">
+            <circle cx="65" cy="65" r="50" fill="none" stroke="#1a2235" stroke-width="22"/>
+            <!-- Dry AMD 74% -->
+            <circle cx="65" cy="65" r="50" fill="none" stroke="#e8a020" stroke-width="22"
+              stroke-dasharray="233 314" stroke-dashoffset="0" transform="rotate(-90 65 65)"/>
+            <!-- Wet AMD 26% -->
+            <circle cx="65" cy="65" r="50" fill="none" stroke="#ef4444" stroke-width="22"
+              stroke-dasharray="81 314" stroke-dashoffset="-233" transform="rotate(-90 65 65)"/>
+            <text x="65" y="62" text-anchor="middle" fill="#fff" font-size="18" font-family="Playfair Display,serif" font-weight="700">AMD</text>
+            <text x="65" y="76" text-anchor="middle" fill="#64748b" font-size="9">Age 60+</text>
+          </svg>
+          <div class="donut-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#e8a020"></div>Dry AMD — 74% of elderly AMD</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>Wet AMD — 26% (higher than general pop.)</div>
+            <div style="margin-top:.8rem; font-size:.75rem; color:var(--muted); line-height:1.6;">
+              Wet AMD proportion doubles in 75+ vs 60–65 age group.<br>
+              Late diagnosis is the primary reason — average 3.2 yr delay in India.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="card-title">Key Co-morbidities in Elderly AMD Patients — India</div>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">Hypertension</div><div class="bar-track"><div class="bar-fill" style="width:100%;--bar-color:linear-gradient(90deg,#ef4444,#f87171)">68%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Vitamin D Deficiency</div><div class="bar-track"><div class="bar-fill" style="width:86%;--bar-color:linear-gradient(90deg,#f59e0b,#fcd34d)">58%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Cataract (co-existing)</div><div class="bar-track"><div class="bar-fill" style="width:82%;--bar-color:linear-gradient(90deg,#e8a020,#f59e0b)">55%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Type 2 Diabetes</div><div class="bar-track"><div class="bar-fill" style="width:72%;--bar-color:linear-gradient(90deg,#8b5cf6,#a78bfa)">48%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Vit A Deficiency</div><div class="bar-track"><div class="bar-fill" style="width:50%;--bar-color:linear-gradient(90deg,#3b82f6,#60a5fa)">34%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Depression / Isolation</div><div class="bar-track"><div class="bar-fill" style="width:44%;--bar-color:linear-gradient(90deg,#10b981,#34d399)">30%</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Elderly-specific alert box -->
+    <div style="background:linear-gradient(135deg,rgba(232,160,32,0.08),rgba(239,68,68,0.05));border:1px solid rgba(232,160,32,0.25);border-radius:14px;padding:1.5rem 2rem;margin-bottom:1.5rem;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.5rem;">
+      <div>
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);font-family:'IBM Plex Mono',monospace;margin-bottom:.5rem;">Why Elderly Are More Vulnerable</div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.8;">Older adults absorb fat-soluble vitamins (A, D, E, K) less efficiently due to reduced gut function. Fixed incomes restrict dietary diversity. Social isolation leads to poor eating patterns. Polypharmacy (multiple medicines) can deplete vitamin A stores.</div>
+      </div>
+      <div>
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent2);font-family:'IBM Plex Mono',monospace;margin-bottom:.5rem;">VAD + AMD: The Double Burden</div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.8;">Vitamin A deficiency worsens AMD by impairing the visual cycle (retinal regeneration). Low retinol levels reduce RPE cell repair capacity, accelerating photoreceptor degeneration. Correcting VAD in elderly AMD patients slows disease progression by up to 28% (AIIMS data).</div>
+      </div>
+      <div>
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:#6ee7b7;font-family:'IBM Plex Mono',monospace;margin-bottom:.5rem;">Screening Gaps in India</div>
+        <div style="font-size:.8rem;color:var(--muted);line-height:1.8;">Only 12% of elderly Indians have undergone a dilated eye exam. Average AMD diagnosis happens 3.2 years after symptom onset. Rural elderly have almost no access to OCT scanning. Vitamin A levels are almost never tested in standard geriatric evaluations.</div>
+      </div>
+    </div>
+
+    <div class="full-card">
+      <div class="card-title">AMD & VAD Burden by Elderly Population Subgroup — India</div>
+      <table class="data-table">
+        <thead><tr><th>Subgroup</th><th>Population (est.)</th><th>AMD Prevalence</th><th>VAD Prevalence</th><th>Primary Risk Factor</th><th>Access to Eye Care</th></tr></thead>
+        <tbody>
+          <tr><td>Urban elderly (60+)</td><td>~45 million</td><td><span class="pill pill-yellow">9.8%</span></td><td><span class="pill pill-yellow">27%</span></td><td>Hypertension, smoking, UV</td><td><span class="pill pill-green">Moderate–Good</span></td></tr>
+          <tr><td>Rural elderly (60+)</td><td>~108 million</td><td><span class="pill pill-red">13.2%</span></td><td><span class="pill pill-red">42%</span></td><td>Poor diet, no screening access</td><td><span class="pill pill-red">Poor</span></td></tr>
+          <tr><td>Widowed women (60+)</td><td>~35 million</td><td><span class="pill pill-red">15.1%</span></td><td><span class="pill pill-red">48%</span></td><td>Isolation, dietary neglect</td><td><span class="pill pill-red">Very Poor</span></td></tr>
+          <tr><td>Below Poverty Line (60+)</td><td>~40 million</td><td><span class="pill pill-red">16.4%</span></td><td><span class="pill pill-red">55%</span></td><td>Malnutrition, no healthcare</td><td><span class="pill pill-red">Very Poor</span></td></tr>
+          <tr><td>Diabetic elderly (60+)</td><td>~20 million</td><td><span class="pill pill-red">19.7%</span></td><td><span class="pill pill-yellow">31%</span></td><td>DM-related vascular changes</td><td><span class="pill pill-yellow">Moderate</span></td></tr>
+          <tr><td>Post-cataract surgery (60+)</td><td>~12 million</td><td><span class="pill pill-yellow">11.3%</span></td><td><span class="pill pill-yellow">29%</span></td><td>Underlying AMD undetected</td><td><span class="pill pill-green">Moderate</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== AMD ANALYSIS ===== -->
+  <section id="amd" class="section">
+    <div class="info-box">
+      <h3>Age-related Macular Degeneration — Indian Epidemiology</h3>
+      <p>AMD is a progressive degeneration of the macula causing central vision loss. In India, urban prevalence is higher (8.3%) vs rural (5.9%), attributed to diet, UV exposure, and delayed diagnosis. South and North India show highest burden. The condition predominantly affects 60+ age group, with women at slightly higher risk (OR 1.3).</p>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi" style="--kpi-color:#e8a020"><div class="kpi-label">Urban Prevalence</div><div class="kpi-value">8.3%</div><div class="kpi-sub">Metro cities — Mumbai, Delhi, Bangalore</div></div>
+      <div class="kpi" style="--kpi-color:#3b82f6"><div class="kpi-label">Rural Prevalence</div><div class="kpi-value">5.9%</div><div class="kpi-sub">Rural and semi-urban populations</div></div>
+      <div class="kpi" style="--kpi-color:#10b981"><div class="kpi-label">Female Risk (OR)</div><div class="kpi-value">1.3×</div><div class="kpi-sub">Higher risk vs males (postmenopausal)</div></div>
+      <div class="kpi" style="--kpi-color:#ef4444"><div class="kpi-label">Bilateral Cases</div><div class="kpi-value">64%</div><div class="kpi-sub">Both eyes affected in advanced AMD</div></div>
+    </div>
+
+    <div class="full-card">
+      <div class="card-title">AMD Risk Factor Analysis — Indian Context</div>
+      <table class="data-table">
+        <thead><tr><th>Risk Factor</th><th>Prevalence in India</th><th>AMD Association</th><th>Modifiability</th><th>Indian Context</th></tr></thead>
+        <tbody>
+          <tr><td>Age ≥60 years</td><td>8.6% of population</td><td><span class="pill pill-red">Very High (OR 8.2)</span></td><td><span class="pill pill-yellow">Non-Modifiable</span></td><td>Rapidly aging India — 340M by 2050</td></tr>
+          <tr><td>Cigarette Smoking</td><td>28.6% (males)</td><td><span class="pill pill-red">High (OR 3.6)</span></td><td><span class="pill pill-green">Modifiable</span></td><td>Bidi smoking also significant risk</td></tr>
+          <tr><td>Hypertension</td><td>28.5%</td><td><span class="pill pill-yellow">Moderate (OR 1.8)</span></td><td><span class="pill pill-green">Modifiable</span></td><td>High salt diet, stress — major driver</td></tr>
+          <tr><td>Type 2 Diabetes</td><td>11.4%</td><td><span class="pill pill-yellow">Moderate (OR 1.6)</span></td><td><span class="pill pill-green">Modifiable</span></td><td>India is diabetic capital of world</td></tr>
+          <tr><td>Obesity (BMI≥30)</td><td>5.9% obese, 22.9% overweight</td><td><span class="pill pill-yellow">Moderate (OR 1.5)</span></td><td><span class="pill pill-green">Modifiable</span></td><td>Urban obesity rising significantly</td></tr>
+          <tr><td>Low dietary antioxidants</td><td>Widespread in low-income</td><td><span class="pill pill-yellow">Moderate (OR 1.7)</span></td><td><span class="pill pill-green">Modifiable</span></td><td>Poor intake of leafy greens, nuts</td></tr>
+          <tr><td>UV Exposure</td><td>High (tropical country)</td><td><span class="pill pill-yellow">Moderate (OR 1.4)</span></td><td><span class="pill pill-blue">Partially</span></td><td>High sunlight index increases risk</td></tr>
+          <tr><td>Family History</td><td>~15% of AMD patients</td><td><span class="pill pill-red">High (OR 4.2)</span></td><td><span class="pill pill-yellow">Non-Modifiable</span></td><td>CFH, ARMS2 gene variants prevalent</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-row">
+      <div class="chart-card">
+        <div class="card-title">AMD Stages — Clinical Classification</div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-dot active"></div>
+            <div class="tl-title">Early AMD</div>
+            <div class="tl-desc">Small/medium drusen (&lt;125μm). No pigment changes. Usually asymptomatic. Detected on fundus exam. ~55% of AMD cases in India.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot active"></div>
+            <div class="tl-title">Intermediate AMD</div>
+            <div class="tl-desc">Large drusen (≥125μm) and/or geographic atrophy. Mild visual disturbance, metamorphopsia. ~27% of cases. AREDS2 supplementation recommended.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot active"></div>
+            <div class="tl-title">Advanced Dry AMD (Geographic Atrophy)</div>
+            <div class="tl-desc">RPE cell loss and photoreceptor death. Central scotoma, significant vision loss. ~11% of Indian AMD cases. Pegcetacoplan (Syfovre) — limited availability.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-title">Wet AMD (Neovascular)</div>
+            <div class="tl-desc">Choroidal neovascularization. Rapid, severe central vision loss. Requires urgent anti-VEGF treatment (Ranibizumab/Bevacizumab). 18% of Indian AMD — highest urgency.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="card-title">State-wise AMD Burden — Top 8 States</div>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">Maharashtra</div><div class="bar-track"><div class="bar-fill" style="width:95%;--bar-color:linear-gradient(90deg,#ef4444,#f87171)">9.1%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Tamil Nadu</div><div class="bar-track"><div class="bar-fill" style="width:87%;--bar-color:linear-gradient(90deg,#ef4444,#f87171)">8.3%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Karnataka</div><div class="bar-track"><div class="bar-fill" style="width:82%;--bar-color:linear-gradient(90deg,#e8a020,#f59e0b)">7.9%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Andhra Pradesh</div><div class="bar-track"><div class="bar-fill" style="width:80%;--bar-color:linear-gradient(90deg,#e8a020,#f59e0b)">7.6%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Rajasthan</div><div class="bar-track"><div class="bar-fill" style="width:77%;--bar-color:linear-gradient(90deg,#e8a020,#f59e0b)">7.4%</div></div></div>
+          <div class="bar-row"><div class="bar-label">UP</div><div class="bar-track"><div class="bar-fill" style="width:72%;--bar-color:linear-gradient(90deg,#3b82f6,#60a5fa)">6.9%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Bihar</div><div class="bar-track"><div class="bar-fill" style="width:60%;--bar-color:linear-gradient(90deg,#3b82f6,#60a5fa)">5.7%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Assam</div><div class="bar-track"><div class="bar-fill" style="width:53%;--bar-color:linear-gradient(90deg,#10b981,#34d399)">5.1%</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VITAMIN A ===== -->
+  <section id="vitA" class="section">
+    <div class="info-box">
+      <h3>Vitamin A Deficiency — India Public Health Crisis</h3>
+      <p>India has the largest number of VAD-affected children globally, contributing to preventable blindness, increased infection susceptibility, and child mortality. NFHS-5 shows serum retinol &lt;0.7 μmol/L in 17.5% children under 5. Deficiency is most severe in Rajasthan, UP, MP, Bihar, and Jharkhand — the BIMARU states.</p>
+    </div>
+
+    <div class="kpi-grid">
+      <div class="kpi" style="--kpi-color:#ef4444"><div class="kpi-label">Children &lt;5 (VAD)</div><div class="kpi-value">17.5%</div><div class="kpi-sub">Subclinical deficiency (NFHS-5)</div></div>
+      <div class="kpi" style="--kpi-color:#f59e0b"><div class="kpi-label">Night Blindness (Child)</div><div class="kpi-value">0.6%</div><div class="kpi-sub">XN stage — symptomatic VAD</div></div>
+      <div class="kpi" style="--kpi-color:#e8a020"><div class="kpi-label">Corneal Xerosis</div><div class="kpi-value">0.3%</div><div class="kpi-sub">Severe VAD with corneal involvement</div></div>
+      <div class="kpi" style="--kpi-color:#8b5cf6"><div class="kpi-label">VAD Mortality Link</div><div class="kpi-value">23%</div><div class="kpi-sub">Child deaths attributable to VAD (WHO)</div></div>
+    </div>
+
+    <div class="full-card">
+      <div class="card-title">WHO/ICMR VAD Classification (Xerophthalmia Stages)</div>
+      <table class="data-table">
+        <thead><tr><th>WHO Code</th><th>Stage</th><th>Clinical Features</th><th>Prevalence India</th><th>Urgency</th></tr></thead>
+        <tbody>
+          <tr><td><span style="font-family:monospace;color:#e8a020">XN</span></td><td>Night Blindness</td><td>Difficulty seeing in dim light; nyctalopia</td><td>0.6% children</td><td><span class="pill pill-yellow">Moderate</span></td></tr>
+          <tr><td><span style="font-family:monospace;color:#f59e0b">X1A</span></td><td>Conjunctival Xerosis</td><td>Dry, lusterless conjunctiva; thickened appearance</td><td>0.3%</td><td><span class="pill pill-yellow">Moderate</span></td></tr>
+          <tr><td><span style="font-family:monospace;color:#f59e0b">X1B</span></td><td>Bitot's Spots</td><td>Foamy-white triangular deposits on temporal conjunctiva</td><td>0.8%</td><td><span class="pill pill-yellow">Significant</span></td></tr>
+          <tr><td><span style="font-family:monospace;color:#ef4444">X2</span></td><td>Corneal Xerosis</td><td>Hazy, dry cornea; loss of luster</td><td>0.11%</td><td><span class="pill pill-red">Urgent</span></td></tr>
+          <tr><td><span style="font-family:monospace;color:#ef4444">X3A</span></td><td>Corneal Ulceration</td><td>Corneal ulcer involving &lt;1/3 corneal surface</td><td>0.05%</td><td><span class="pill pill-red">Emergency</span></td></tr>
+          <tr><td><span style="font-family:monospace;color:#dc2626">X3B</span></td><td>Keratomalacia</td><td>Corneal ulcer &gt;1/3 surface; liquefaction necrosis</td><td>0.01%</td><td><span class="pill pill-red">Critical</span></td></tr>
+          <tr><td><span style="font-family:monospace;color:#64748b">XS</span></td><td>Corneal Scar</td><td>Residual corneal scarring from healed xerosis</td><td>0.08%</td><td><span class="pill pill-blue">Chronic</span></td></tr>
+          <tr><td><span style="font-family:monospace;color:#64748b">XF</span></td><td>Xerophthalmic Fundus</td><td>White spots in retinal periphery</td><td>Rare</td><td><span class="pill pill-blue">Chronic</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-row">
+      <div class="chart-card">
+        <div class="card-title">VAD Dietary Sources — India Coverage (%)</div>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">Breast Milk</div><div class="bar-track"><div class="bar-fill" style="width:88%;--bar-color:linear-gradient(90deg,#10b981,#34d399)">88%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Amla / Carrot</div><div class="bar-track"><div class="bar-fill" style="width:45%;--bar-color:linear-gradient(90deg,#e8a020,#f59e0b)">45%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Dark Leafy Veg</div><div class="bar-track"><div class="bar-fill" style="width:38%;--bar-color:linear-gradient(90deg,#3b82f6,#60a5fa)">38%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Fortified Foods</div><div class="bar-track"><div class="bar-fill" style="width:34%;--bar-color:linear-gradient(90deg,#8b5cf6,#a78bfa)">34%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Eggs (weekly)</div><div class="bar-track"><div class="bar-fill" style="width:42%;--bar-color:linear-gradient(90deg,#f59e0b,#fcd34d)">42%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Mango / Papaya</div><div class="bar-track"><div class="bar-fill" style="width:55%;--bar-color:linear-gradient(90deg,#e8a020,#f59e0b)">55%</div></div></div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="card-title">VAD State Severity Index</div>
+        <div class="bar-chart">
+          <div class="bar-row"><div class="bar-label">Rajasthan</div><div class="bar-track"><div class="bar-fill" style="width:100%;--bar-color:linear-gradient(90deg,#ef4444,#f87171)">31.2%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Uttar Pradesh</div><div class="bar-track"><div class="bar-fill" style="width:91%;--bar-color:linear-gradient(90deg,#ef4444,#f87171)">28.4%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Madhya Pradesh</div><div class="bar-track"><div class="bar-fill" style="width:83%;--bar-color:linear-gradient(90deg,#e8a020,#f59e0b)">26.0%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Bihar</div><div class="bar-track"><div class="bar-fill" style="width:76%;--bar-color:linear-gradient(90deg,#e8a020,#f59e0b)">23.7%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Jharkhand</div><div class="bar-track"><div class="bar-fill" style="width:68%;--bar-color:linear-gradient(90deg,#f59e0b,#fcd34d)">21.3%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Odisha</div><div class="bar-track"><div class="bar-fill" style="width:58%;--bar-color:linear-gradient(90deg,#3b82f6,#60a5fa)">18.2%</div></div></div>
+          <div class="bar-row"><div class="bar-label">Kerala</div><div class="bar-track"><div class="bar-fill" style="width:15%;--bar-color:linear-gradient(90deg,#10b981,#34d399)">4.7%</div></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STATEWISE ===== -->
+  <section id="statewise" class="section">
+    <div class="info-box">
+      <h3>State-wise Combined Burden — AMD + VAD Heatmap</h3>
+      <p>Data from NFHS-5, NPCB annual reports, and ICMR multi-centric studies. Color intensity reflects combined disease burden. States with limited ophthalmology infrastructure show higher late-stage presentation rates.</p>
+    </div>
+
+    <div class="full-card">
+      <div class="card-title">India — Combined Ocular Health Burden (AMD + VAD)</div>
+      <div class="heatmap">
+        <div class="hm-cell" style="background:rgba(239,68,68,0.85);grid-column:3">9.1%<br><div class="hm-state">Rajasthan</div></div>
+        <div class="hm-cell" style="background:rgba(239,68,68,0.8)">8.8%<br><div class="hm-state">Uttar Pradesh</div></div>
+        <div class="hm-cell" style="background:rgba(239,68,68,0.75)">8.5%<br><div class="hm-state">Bihar</div></div>
+        <div class="hm-cell" style="background:rgba(239,68,68,0.85)">9.1%<br><div class="hm-state">Maharashtra</div></div>
+        <div class="hm-cell" style="background:rgba(245,158,11,0.8)">8.3%<br><div class="hm-state">Tamil Nadu</div></div>
+        <div class="hm-cell" style="background:rgba(245,158,11,0.75)">7.9%<br><div class="hm-state">Karnataka</div></div>
+        <div class="hm-cell" style="background:rgba(245,158,11,0.7)">7.6%<br><div class="hm-state">A. Pradesh</div></div>
+        <div class="hm-cell" style="background:rgba(232,160,32,0.7)">7.4%<br><div class="hm-state">M. Pradesh</div></div>
+        <div class="hm-cell" style="background:rgba(232,160,32,0.65)">7.1%<br><div class="hm-state">West Bengal</div></div>
+        <div class="hm-cell" style="background:rgba(232,160,32,0.6)">6.8%<br><div class="hm-state">Gujarat</div></div>
+        <div class="hm-cell" style="background:rgba(59,130,246,0.65)">6.3%<br><div class="hm-state">Jharkhand</div></div>
+        <div class="hm-cell" style="background:rgba(59,130,246,0.6)">6.0%<br><div class="hm-state">Odisha</div></div>
+        <div class="hm-cell" style="background:rgba(59,130,246,0.55)">5.7%<br><div class="hm-state">Assam</div></div>
+        <div class="hm-cell" style="background:rgba(16,185,129,0.55)">5.1%<br><div class="hm-state">Punjab</div></div>
+        <div class="hm-cell" style="background:rgba(16,185,129,0.4)">3.8%<br><div class="hm-state">Kerala</div></div>
+      </div>
+      <div style="display:flex;gap:1rem;margin-top:1.2rem;flex-wrap:wrap;">
+        <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div> &gt;8.5% — Critical burden</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div> 7.0–8.4% — High burden</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#3b82f6"></div> 5.5–6.9% — Moderate</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#10b981"></div> &lt;5.5% — Lower burden</div>
+      </div>
+    </div>
+
+    <div class="full-card">
+      <div class="card-title">Comprehensive State Data Table</div>
+      <table class="data-table">
+        <thead><tr><th>State</th><th>AMD Prev. (50+)</th><th>VAD Prev. (&lt;5)</th><th>Night Blindness</th><th>Ophthalmology Access</th><th>Priority</th></tr></thead>
+        <tbody>
+          <tr><td>Maharashtra</td><td>9.1%</td><td>14.2%</td><td>0.4%</td><td><span class="pill pill-green">Good</span></td><td><span class="pill pill-red">High</span></td></tr>
+          <tr><td>Tamil Nadu</td><td>8.3%</td><td>11.3%</td><td>0.3%</td><td><span class="pill pill-green">Good</span></td><td><span class="pill pill-yellow">Moderate</span></td></tr>
+          <tr><td>Rajasthan</td><td>7.4%</td><td>31.2%</td><td>1.1%</td><td><span class="pill pill-red">Poor</span></td><td><span class="pill pill-red">Critical</span></td></tr>
+          <tr><td>Uttar Pradesh</td><td>6.9%</td><td>28.4%</td><td>0.9%</td><td><span class="pill pill-red">Poor</span></td><td><span class="pill pill-red">Critical</span></td></tr>
+          <tr><td>Bihar</td><td>5.7%</td><td>23.7%</td><td>0.8%</td><td><span class="pill pill-red">Poor</span></td><td><span class="pill pill-red">Critical</span></td></tr>
+          <tr><td>Karnataka</td><td>7.9%</td><td>12.1%</td><td>0.3%</td><td><span class="pill pill-green">Good</span></td><td><span class="pill pill-yellow">Moderate</span></td></tr>
+          <tr><td>Madhya Pradesh</td><td>7.2%</td><td>26.0%</td><td>1.0%</td><td><span class="pill pill-yellow">Limited</span></td><td><span class="pill pill-red">High</span></td></tr>
+          <tr><td>Andhra Pradesh</td><td>7.6%</td><td>13.8%</td><td>0.5%</td><td><span class="pill pill-yellow">Limited</span></td><td><span class="pill pill-yellow">Moderate</span></td></tr>
+          <tr><td>West Bengal</td><td>7.1%</td><td>16.4%</td><td>0.5%</td><td><span class="pill pill-yellow">Limited</span></td><td><span class="pill pill-yellow">Moderate</span></td></tr>
+          <tr><td>Kerala</td><td>3.8%</td><td>4.7%</td><td>0.1%</td><td><span class="pill pill-green">Excellent</span></td><td><span class="pill pill-green">Low</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== PRESCRIPTION ===== -->
+  <section id="prescription" class="section">
+    <div class="info-box">
+      <h3>Evidence-Based Prescription & Treatment Protocols</h3>
+      <p>All prescriptions are based on Indian clinical guidelines (AIIMS, AIOS), WHO recommendations, and ICMR protocols. Medications listed are available in India. Consult a qualified ophthalmologist before initiating treatment. Dosages are for adult patients unless specified.</p>
+    </div>
+
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin-bottom:1rem;color:#fff;">🔬 AMD Treatment Protocols</h2>
+
+    <div class="rx-grid">
+      <div class="rx-card">
+        <div class="rx-header"><div class="rx-icon">💉</div><div><div class="rx-title">Wet AMD — Anti-VEGF Therapy</div><div class="rx-subtitle">First-line treatment · Intravitreal injection</div></div></div>
+
+        <div class="rx-section-label">First Choice (India)</div>
+        <div class="rx-item">Bevacizumab (Avastin) — Off-label but widely used in India<br><span class="rx-dose">1.25mg / 0.05mL intravitreal · Monthly × 3, then PRN</span></div>
+        <div class="rx-item">Ranibizumab (Lucentis / Razumab) — Approved for nAMD<br><span class="rx-dose">0.5mg / 0.05mL intravitreal · Monthly × 3 loading doses</span></div>
+
+        <div class="rx-section-label">Alternative / Newer</div>
+        <div class="rx-item">Aflibercept (Eylea) — For resistant cases<br><span class="rx-dose">2mg / 0.05mL · Monthly × 3 then every 8 weeks</span></div>
+        <div class="rx-item">Brolucizumab (Beovu) — q12w after loading<br><span class="rx-dose">6mg / 0.05mL · Available in selected Indian centres</span></div>
+
+        <div class="rx-warning">⚠️ Monitor for: endophthalmitis, retinal detachment, IOP spike post-injection. Requires sterile technique and trained ophthalmologist.</div>
+        <div class="rx-note">✅ Indian Cost: Razumab (biosimilar) ~₹8,000–12,000/injection. Bevacizumab ~₹2,500–5,000/injection (off-label).</div>
+      </div>
+
+      <div class="rx-card">
+        <div class="rx-header"><div class="rx-icon">💊</div><div><div class="rx-title">Dry AMD — AREDS2 Supplementation</div><div class="rx-subtitle">Intermediate to Advanced Dry AMD</div></div></div>
+
+        <div class="rx-section-label">AREDS2 Formula (Daily)</div>
+        <div class="rx-item">Vitamin C — <span class="rx-dose">500mg OD</span></div>
+        <div class="rx-item">Vitamin E — <span class="rx-dose">400 IU OD</span></div>
+        <div class="rx-item">Lutein — <span class="rx-dose">10mg OD</span></div>
+        <div class="rx-item">Zeaxanthin — <span class="rx-dose">2mg OD</span></div>
+        <div class="rx-item">Zinc (Zinc Oxide) — <span class="rx-dose">80mg OD</span></div>
+        <div class="rx-item">Copper (Cupric Oxide) — <span class="rx-dose">2mg OD</span></div>
+
+        <div class="rx-section-label">Indian Brand Equivalents</div>
+        <div class="rx-item">Macushield Gold / Macugen (India)<br><span class="rx-dose">1 capsule OD after food</span></div>
+        <div class="rx-item">I-Care AMD (Lupin) / Maculasafe<br><span class="rx-dose">1 tablet OD — ₹600–900/month</span></div>
+
+        <div class="rx-warning">⚠️ Avoid beta-carotene in smokers (lung cancer risk). Use lutein + zeaxanthin formulation.</div>
+        <div class="rx-note">✅ Reduces progression to advanced AMD by 25% (AREDS2 trial).</div>
+      </div>
+
+      <div class="rx-card">
+        <div class="rx-header"><div class="rx-icon">🔦</div><div><div class="rx-title">AMD — Adjunct Medications</div><div class="rx-subtitle">Systemic support and vision rehabilitation</div></div></div>
+
+        <div class="rx-section-label">Vascular & Systemic Control</div>
+        <div class="rx-item">Anti-hypertensive (if HTN present)<br><span class="rx-dose">Amlodipine 5mg OD or Telmisartan 40mg OD</span></div>
+        <div class="rx-item">Omega-3 Fatty Acids (Flaxseed/Fish oil)<br><span class="rx-dose">1000mg OD — reduces inflammation</span></div>
+        <div class="rx-item">Statin (if hyperlipidemia)<br><span class="rx-dose">Atorvastatin 10–20mg OD</span></div>
+
+        <div class="rx-section-label">Low Vision Aids (India)</div>
+        <div class="rx-item">Magnifying glasses / telescopic lenses<br><span class="rx-dose">Available at NPCB-approved optical centres</span></div>
+        <div class="rx-item">Contrast-enhanced reading devices<br><span class="rx-dose">CCTV magnifiers — ₹15,000–50,000</span></div>
+
+        <div class="rx-section-label">Monitoring</div>
+        <div class="rx-item">Amsler grid self-monitoring — Weekly<br><span class="rx-dose">Any new distortion → immediate referral</span></div>
+
+        <div class="rx-note">✅ All AMD patients should avoid smoking, use UV-protective sunglasses (UV400).</div>
+      </div>
+    </div>
+
+    <h2 style="font-family:'Playfair Display',serif;font-size:1.3rem;margin:2rem 0 1rem;color:#fff;">💊 Vitamin A Deficiency — Treatment Protocols</h2>
+
+    <div class="rx-grid">
+      <div class="rx-card">
+        <div class="rx-header"><div class="rx-icon">👶</div><div><div class="rx-title">VAD Treatment — Children</div><div class="rx-subtitle">WHO/ICMR Stoss Therapy Protocol</div></div></div>
+
+        <div class="rx-section-label">Stoss Therapy (Immediate)</div>
+        <div class="rx-item">Day 1 — Oral Vitamin A<br><span class="rx-dose">&lt;6 months: 50,000 IU | 6–12 months: 1,00,000 IU | &gt;1 year: 2,00,000 IU</span></div>
+        <div class="rx-item">Day 2 — Repeat same dose<br><span class="rx-dose">Same as Day 1 dose</span></div>
+        <div class="rx-item">2–4 weeks later — Third dose<br><span class="rx-dose">Same as Day 1 dose (maintenance)</span></div>
+
+        <div class="rx-section-label">National Programme (NPCB)</div>
+        <div class="rx-item">Routine Supplementation (9 months–5 years)<br><span class="rx-dose">2,00,000 IU every 6 months via Vitamin A prophylaxis rounds</span></div>
+
+        <div class="rx-section-label">Indian Brands</div>
+        <div class="rx-item">Aquasol-A / Vitamin A capsules (Govt supply)<br><span class="rx-dose">Available free at PHC/Sub-centres under NHM</span></div>
+
+        <div class="rx-warning">⚠️ Do NOT give high-dose Vitamin A to pregnant women (teratogenic). Avoid in &lt;6 months unless deficiency confirmed.</div>
+        <div class="rx-note">✅ Single dose reduces child mortality by 24% (WHO Cochrane Review).</div>
+      </div>
+
+      <div class="rx-card">
+        <div class="rx-header"><div class="rx-icon">🤱</div><div><div class="rx-title">VAD Treatment — Pregnant & Lactating Women</div><div class="rx-subtitle">Safe supplementation during pregnancy</div></div></div>
+
+        <div class="rx-section-label">Pregnant Women (Safe Dose)</div>
+        <div class="rx-item">Vitamin A (low-dose) — If deficient<br><span class="rx-dose">≤10,000 IU/day OR 25,000 IU/week (safe upper limit)</span></div>
+        <div class="rx-item">Antenatal supplements with Vit A<br><span class="rx-dose">IFA tablets (Iron + Folic Acid) — do NOT contain Vitamin A in India</span></div>
+
+        <div class="rx-section-label">Postpartum Supplementation</div>
+        <div class="rx-item">Single high-dose within 6 weeks delivery<br><span class="rx-dose">2,00,000 IU oral — single dose (safe postpartum)</span></div>
+        <div class="rx-item">Promotes Vitamin A transfer through breast milk<br><span class="rx-dose">Benefits infant for first 6 months of life</span></div>
+
+        <div class="rx-section-label">Dietary Counseling</div>
+        <div class="rx-item">Daily intake of yellow/orange fruits, leafy greens, eggs, dairy<br><span class="rx-dose">Target: 800 μg RAE/day (pregnancy)</span></div>
+
+        <div class="rx-warning">⚠️ High-dose (&gt;10,000 IU/day) Vitamin A supplementation in first trimester is CONTRAINDICATED — teratogenic risk.</div>
+      </div>
+
+      <div class="rx-card">
+        <div class="rx-header"><div class="rx-icon">🏥</div><div><div class="rx-title">Severe VAD — Emergency Management</div><div class="rx-subtitle">Corneal involvement (X2/X3) · Keratomalacia</div></div></div>
+
+        <div class="rx-section-label">Emergency Protocol</div>
+        <div class="rx-item">Immediate Vitamin A — IM/Oral<br><span class="rx-dose">Day 1: 2,00,000 IU IM or oral</span></div>
+        <div class="rx-item">Day 2: Second dose<br><span class="rx-dose">2,00,000 IU — same route</span></div>
+        <div class="rx-item">4–6 weeks: Third dose<br><span class="rx-dose">2,00,000 IU oral maintenance</span></div>
+
+        <div class="rx-section-label">Ocular Lubricants & Antibiotics</div>
+        <div class="rx-item">Lubricant eye drops — Every 2 hours<br><span class="rx-dose">Carboxymethylcellulose (CMC) 0.5% eye drops</span></div>
+        <div class="rx-item">Antibiotic prophylaxis (corneal ulcer)<br><span class="rx-dose">Moxifloxacin 0.5% eye drops QID or Tobramycin 0.3%</span></div>
+        <div class="rx-item">Eye patching for corneal ulcer<br><span class="rx-dose">Sterile pad — protect from secondary infection</span></div>
+
+        <div class="rx-section-label">Nutritional Rehabilitation</div>
+        <div class="rx-item">Therapeutic diet with high Vit A foods<br><span class="rx-dose">Carrot, sweet potato, mango, egg yolk, leafy greens</span></div>
+        <div class="rx-item">Treat co-existing malnutrition<br><span class="rx-dose">F-75/F-100 formula (SAM protocol) + Zinc 20mg OD × 14 days</span></div>
+
+        <div class="rx-warning">⚠️ Keratomalacia — Do NOT patch both eyes. Refer immediately to tertiary eye center. Risk of irreversible blindness within 24–48 hours.</div>
+      </div>
+    </div>
+
+    <div class="full-card">
+      <div class="card-title">Drug Comparison — AMD Treatments Available in India</div>
+      <table class="data-table">
+        <thead><tr><th>Drug</th><th>Class</th><th>Route</th><th>Frequency</th><th>Indian Cost/dose</th><th>Availability</th></tr></thead>
+        <tbody>
+          <tr><td>Bevacizumab (Avastin)</td><td>Anti-VEGF</td><td>Intravitreal</td><td>Monthly → PRN</td><td>₹2,500–5,000</td><td><span class="pill pill-green">Widely Available</span></td></tr>
+          <tr><td>Ranibizumab (Razumab)</td><td>Anti-VEGF</td><td>Intravitreal</td><td>Monthly × 3 → PRN</td><td>₹8,000–12,000</td><td><span class="pill pill-green">Available</span></td></tr>
+          <tr><td>Aflibercept (Eylea)</td><td>Anti-VEGF</td><td>Intravitreal</td><td>Monthly × 3 → q8w</td><td>₹35,000–50,000</td><td><span class="pill pill-yellow">Limited centres</span></td></tr>
+          <tr><td>Brolucizumab (Beovu)</td><td>Anti-VEGF</td><td>Intravitreal</td><td>Monthly × 3 → q12w</td><td>₹40,000–60,000</td><td><span class="pill pill-yellow">Selective centres</span></td></tr>
+          <tr><td>Macushield Gold</td><td>AREDS2 Supplement</td><td>Oral</td><td>OD</td><td>₹700–900/month</td><td><span class="pill pill-green">OTC Available</span></td></tr>
+          <tr><td>Photodynamic Therapy</td><td>PDT (Visudyne)</td><td>IV+Laser</td><td>Every 3 months PRN</td><td>₹60,000–80,000</td><td><span class="pill pill-red">Very Limited</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ==================== NATURAL FOOD SOLUTIONS ==================== -->
+    <div class="section-divider">
+      <h2>🌿 Natural Food Solutions — Eye Health Nutrition</h2>
+    </div>
+
+    <div class="info-box" style="background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(232,160,32,0.05));border-color:rgba(16,185,129,0.25);">
+      <h3>Why Natural Foods Matter</h3>
+      <p>Clinical nutrition research confirms that dietary intake of key carotenoids, antioxidants, and omega-3 fatty acids can significantly delay AMD progression and reverse early Vitamin A Deficiency. Indian traditional foods provide an exceptionally rich source of retinol, beta-carotene, lutein, and zeaxanthin — often at a fraction of the cost of pharmaceutical supplements. The following section provides evidence-based natural food prescriptions tailored to the Indian dietary context.</p>
+    </div>
+
+    <!-- TOP AMD FOODS -->
+    <div class="full-card">
+      <div class="card-title">🥗 Top Natural Foods for AMD — Lutein & Zeaxanthin Sources</div>
+      <div class="food-grid">
+
+        <div class="food-card" style="--fc:linear-gradient(90deg,#10b981,#34d399)">
+          <span class="food-emoji">🥬</span>
+          <div class="food-name">Palak (Spinach)</div>
+          <div class="food-hindi">पालक · Spinacia oleracea</div>
+          <div class="food-nutrient">Lutein: 12.6mg / 100g cooked | Zeaxanthin: 0.13mg</div>
+          <div class="food-dose">🍽️ <strong>Dose:</strong> 100–150g cooked daily. Saag, dal palak, palak paneer, or raw in salad. Best absorbed with fat (ghee/oil).</div>
+          <div class="food-benefit">✦ Highest lutein source in Indian diet. Reduces AMD risk by up to 43% with regular intake (NEI study).</div>
+        </div>
+
+        <div class="food-card" style="--fc:linear-gradient(90deg,#f59e0b,#fcd34d)">
+          <span class="food-emoji">🌽</span>
+          <div class="food-name">Makkai (Yellow Maize / Corn)</div>
+          <div class="food-hindi">मक्का · Zea mays</div>
+          <div class="food-nutrient">Lutein + Zeaxanthin: 1.8mg / 100g | Beta-carotene: 0.22mg</div>
+          <div class="food-dose">🍽️ <strong>Dose:</strong> 1 corn cob (150g) daily. Makkai ki roti, bhutta, corn chaat. Yellow variety preferred over white.</div>
+          <div class="food-benefit">✦ Zeaxanthin concentrates in the macula — directly protects foveal photoreceptors from light damage.</div>
+        </div>
+
+        <div class="food-card" style="--fc:linear-gradient(90deg,#3b82f6,#60a5fa)">
+          <span class="food-emoji">🥚</span>
+          <div class="food-name">Anda (Egg — Yolk)</div>
+          <div class="food-hindi">अंडा · Gallus gallus domesticus</div>
+          <div class="food-nutrient">Lutein+Zeaxanthin: 0.33mg/yolk | Bioavailability: 3× higher than plants</div>
+          <div class="food-dose">🍽️ <strong>Dose:</strong> 1–2 eggs daily. Boiled, poached, or as anda bhurji. Do NOT discard yolk — all nutrients are in yolk.</div>
+          <div class="food-benefit">✦ Highest bioavailable lutein source. Egg yolk lutein is absorbed 3–9× better than vegetable lutein due to lipid matrix.</div>
+        </div>
+
+        <div class="food-card" style="--fc:linear-gradient(90deg,#8b5cf6,#a78bfa)">
+          <span class="food-emoji">🫐</span>
+          <div class="food-name">Jamun (Indian Blackberry)</div>
+          <div class="food-hindi">जामुन · Syzygium cumini</div>
+          <div class="food-nutrient">Anthocyanins: 320mg/100g | Vit C: 14.3mg | Quercetin: 2.1mg</div>
+          <div class="food-dose">🍽️ <strong>Dose:</strong> 100–150g fresh fruit (seasonal: June–Sept). Jamun juice or raw. Anthocyanins regenerate rhodopsin.</div>
+          <div class="food-benefit">✦ Anthocyanins protect RPE cells and improve night vision. Traditional use confirmed by modern pharmacology.</div>
+        </div>
+
+        <div class="food-card" style="--fc:linear-gradient(90deg,#e8a020,#f59e0b)">
+          <span class="food-emoji">🥕</span>
+          <div class="food-name">Gajar (Carrot)</div>
+          <div class="food-hindi">गाजर · Daucus carota</div>
+          <div class="food-nutrient">Beta-carotene: 8.29mg / 100g | Lutein: 0.26mg | Vit A: 835 μg RAE</div>
+          <div class="food-dose">🍽️ <strong>Dose:</strong> 1 medium carrot (80g) daily raw, or 150g cooked. Gajar halwa (with ghee), gajar sabzi, raw salad, juice.</div>
+          <div class="food-benefit">✦ Best plant source of preformed Vit A equivalent. Beta-carotene converted to retinol as needed — safe even in large amounts.</div>
+        </div>
+
+        <div class="food-card" style="--fc:linear-gradient(90deg,#ec4899,#f472b6)">
+          <span class="food-emoji">🍅</span>
+          <div class="food-name">Tamatar (Tomato)</div>
+          <div class="food-hindi">टमाटर · Solanum lycopersicum</div>
+          <div class="food-nutrient">Lycopene: 3.0mg/100g cooked | Zeaxanthin: 0.12mg | Vit C: 13mg</div>
+          <div class="food-dose">🍽️ <strong>Dose:</strong> 2 medium tomatoes daily. Cooking increases lycopene bioavailability by 35%. Dal tadka, sabzi, chutney, rasam.</div>
+          <div class="food-benefit">✦ Lycopene reduces oxidative damage to RPE and choroidal vessels — protective in wet AMD progression.</div>
+        </div>
+
+        <div class="food-card" style="--fc:linear-gradient(90deg,#10b981,#059669)">
+          <span class="food-emoji">🌿</span>
+          <div class="food-name">Methi (Fenugreek Leaves)</div>
+          <div class="food-hindi">मेथी · Trigonella foenum-graecum</div>
+          <div class="food-nutrient">Beta-carotene: 3.17mg/100g | Lutein: 1.9mg | Iron: 1.93mg</div>
+          <div class="food-dose">🍽️ <strong>Dose:</strong> 75–100g cooked leaves daily. Methi paratha, methi dal, methi aloo. Available year-round across India.</div>
+          <div class="food-benefit">✦ Triple action: Vitamin A source + antioxidant + helps control blood sugar (protects diabetic macular changes).</div>
+        </div>
+
+        <div class="food-card" style="--fc:linear-gradient(90deg,#f97316,#fb923c)">
+          <span class="food-emoji">🥭</span>
+          <div class="food-name">Aam (Mango — Ripe)</div>
+          <div class="food-hindi">आम · Mangifera indica</div>
+          <div class="food-nutrient">Beta-carotene: 1.08mg/100g | Vit C: 36mg | Zeaxanthin: 0.023mg</div>
+          <div class="food-dose">🍽️ <strong>Dose:</strong> 1 medium mango (200g) daily (seasonal). Also dried aamchur powder year-round. Alphonso highest in carotenes.</div>
+          <div class="food-benefit">✦ Summer staple with high antioxidant load. Vit C regenerates Vit E in retinal tissue, enhancing AREDS2 effect.</div>
+        </div>
+
+        <div class="food-card" style="--fc:linear-gradient(90deg,#14b8a6,#2dd4bf)">
+          <span class="food-emoji">🐟</span>
+          <div class="food-name">Rohu / Katla (Freshwater Fish)</div>
+          <div class="food-hindi">रोहू / कतला · Labeo rohita</div>
+          <div class="food-nutrient">Omega-3 (ALA+DHA): 0.8–1.2g/100g | Vit D: 4.1μg | Selenium: 22μg</div>
+          <div class="food-dose">🍽️ <strong>Dose:</strong> 100–150g cooked fish, 3× per week. Machli curry with minimal oil. Affordable throughout India.</div>
+          <div class="food-benefit">✦ DHA is structural component of photoreceptor outer segments. Omega-3 intake reduces wet AMD risk by 38% (AREDS2 sub-study).</div>
+        </div>
+
+        <div class="food-card" style="--fc:linear-gradient(90deg,#84cc16,#a3e635)">
+          <span class="food-emoji">🌾</span>
+          <div class="food-name">Sarson Ka Saag (Mustard Greens)</div>
+          <div class="food-hindi">सरसों का साग · Brassica juncea</div>
+          <div class="food-nutrient">Lutein+Zeaxanthin: 9.9mg/100g | Vit K: 257μg | Vit C: 70mg</div>
+          <div class="food-dose">🍽️ <strong>Dose:</strong> 100g cooked saag, 4–5×/week (winter). Traditional Punjab/Haryana dish with makki roti + ghee — ideal combination.</div>
+          <div class="food-benefit">✦ Saag + ghee combo is scientifically ideal: fat-soluble lutein absorption increases 5× when eaten with ghee/oil.</div>
+        </div>
+
+        <div class="food-card" style="--fc:linear-gradient(90deg,#e8a020,#fbbf24)">
+          <span class="food-emoji">🥜</span>
+          <div class="food-name">Akhrot (Walnut)</div>
+          <div class="food-hindi">अखरोट · Juglans regia</div>
+          <div class="food-nutrient">ALA Omega-3: 2.57g/30g | Vit E: 0.7mg | Polyphenols: 1526mg/100g</div>
+          <div class="food-dose">🍽️ <strong>Dose:</strong> 5–7 walnut halves (30g) daily. Soaked overnight improves digestibility. As snack, in chutney, raita, or kheer.</div>
+          <div class="food-benefit">✦ Only nut with significant omega-3. Anti-inflammatory effect protects RPE cells. Reduces systemic inflammation linked to AMD.</div>
+        </div>
+
+        <div class="food-card" style="--fc:linear-gradient(90deg,#ef4444,#f87171)">
+          <span class="food-emoji">🫒</span>
+          <div class="food-name">Amla (Indian Gooseberry)</div>
+          <div class="food-hindi">आंवला · Phyllanthus emblica</div>
+          <div class="food-nutrient">Vit C: 600–700mg/100g | Tannins: 28% | Ellagic acid: 4.5mg</div>
+          <div class="food-dose">🍽️ <strong>Dose:</strong> 1–2 fresh amla daily OR 5–10ml amla juice. Murabba, chyawanprash, amla powder in water. Year-round available.</div>
+          <div class="food-benefit">✦ Richest Vit C source in India. Vit C directly meets AREDS2 500mg requirement. Stabilizes collagen in choroidal vessels.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TOP VAD FOODS -->
+    <div class="full-card">
+      <div class="card-title">🍊 Top Natural Foods for Vitamin A Deficiency — Retinol & Beta-Carotene Sources</div>
+      <table class="data-table">
+        <thead>
+          <tr><th>Food (Indian Name)</th><th>Vit A (μg RAE/100g)</th><th>Daily Serving</th><th>% RDA Met</th><th>Best Preparation</th><th>Cost/Day</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>🥕 Gajar (Carrot)</strong><br><span style="font-size:.72rem;color:var(--muted)">Raw or cooked</span></td>
+            <td><span style="color:#10b981;font-weight:700">835 μg</span></td>
+            <td>1 medium (80g)</td>
+            <td><div style="display:flex;align-items:center;gap:.5rem"><div style="width:80px;height:8px;background:#1a2235;border-radius:4px;overflow:hidden"><div style="width:83%;height:100%;background:#10b981;border-radius:4px"></div></div>83%</div></td>
+            <td>Raw salad, juice, halwa with ghee</td>
+            <td>₹3–5</td>
+          </tr>
+          <tr>
+            <td><strong>🍠 Shakarkand (Sweet Potato)</strong><br><span style="font-size:.72rem;color:var(--muted)">Boiled/roasted</span></td>
+            <td><span style="color:#e8a020;font-weight:700">961 μg</span></td>
+            <td>1 medium (100g)</td>
+            <td><div style="display:flex;align-items:center;gap:.5rem"><div style="width:80px;height:8px;background:#1a2235;border-radius:4px;overflow:hidden"><div style="width:96%;height:100%;background:#e8a020;border-radius:4px"></div></div>96%</div></td>
+            <td>Roasted, shakarkand chaat, boiled with chaat masala</td>
+            <td>₹5–8</td>
+          </tr>
+          <tr>
+            <td><strong>🥬 Palak (Spinach)</strong><br><span style="font-size:.72rem;color:var(--muted)">Cooked</span></td>
+            <td><span style="color:#10b981;font-weight:700">469 μg</span></td>
+            <td>100g cooked</td>
+            <td><div style="display:flex;align-items:center;gap:.5rem"><div style="width:80px;height:8px;background:#1a2235;border-radius:4px;overflow:hidden"><div style="width:47%;height:100%;background:#10b981;border-radius:4px"></div></div>47%</div></td>
+            <td>Palak paneer, saag, dal palak (with ghee)</td>
+            <td>₹5–8</td>
+          </tr>
+          <tr>
+            <td><strong>🥚 Anda Yolk (Egg Yolk)</strong><br><span style="font-size:.72rem;color:var(--muted)">Cooked</span></td>
+            <td><span style="color:#f59e0b;font-weight:700">245 μg (preformed retinol)</span></td>
+            <td>2 eggs/day</td>
+            <td><div style="display:flex;align-items:center;gap:.5rem"><div style="width:80px;height:8px;background:#1a2235;border-radius:4px;overflow:hidden"><div style="width:49%;height:100%;background:#f59e0b;border-radius:4px"></div></div>49%</div></td>
+            <td>Boiled, bhurji, omelette. Never skip yolk.</td>
+            <td>₹8–12</td>
+          </tr>
+          <tr>
+            <td><strong>🥭 Aam (Ripe Mango)</strong><br><span style="font-size:.72rem;color:var(--muted)">Fresh / seasonal</span></td>
+            <td><span style="color:#f97316;font-weight:700">54 μg RAE</span></td>
+            <td>1 fruit (200g)</td>
+            <td><div style="display:flex;align-items:center;gap:.5rem"><div style="width:80px;height:8px;background:#1a2235;border-radius:4px;overflow:hidden"><div style="width:11%;height:100%;background:#f97316;border-radius:4px"></div></div>11%</div></td>
+            <td>Fresh, aamras, dried. Alphonso best variety.</td>
+            <td>₹10–25</td>
+          </tr>
+          <tr>
+            <td><strong>🧈 Desi Ghee (Clarified Butter)</strong><br><span style="font-size:.72rem;color:var(--muted)">Animal fat</span></td>
+            <td><span style="color:#e8a020;font-weight:700">270 μg (retinol) per 100g</span></td>
+            <td>1 tsp (5g) = 13.5 μg</td>
+            <td><div style="display:flex;align-items:center;gap:.5rem"><div style="width:80px;height:8px;background:#1a2235;border-radius:4px;overflow:hidden"><div style="width:14%;height:100%;background:#e8a020;border-radius:4px"></div></div>+fat solubility</div></td>
+            <td>On roti, rice, dal. Also enhances fat-soluble Vit absorption.</td>
+            <td>₹4–7</td>
+          </tr>
+          <tr>
+            <td><strong>🥛 Doodh (Full-fat Milk)</strong><br><span style="font-size:.72rem;color:var(--muted)">Fortified preferred</span></td>
+            <td><span style="color:#3b82f6;font-weight:700">28 μg RAE / 100ml</span></td>
+            <td>250–500ml/day</td>
+            <td><div style="display:flex;align-items:center;gap:.5rem"><div style="width:80px;height:8px;background:#1a2235;border-radius:4px;overflow:hidden"><div style="width:14%;height:100%;background:#3b82f6;border-radius:4px"></div></div>7–14%</div></td>
+            <td>Plain warm milk, lassi, chaas, dahi. Fortified brands preferred.</td>
+            <td>₹12–20</td>
+          </tr>
+          <tr>
+            <td><strong>🐓 Murgi ka Kabar (Chicken Liver)</strong><br><span style="font-size:.72rem;color:var(--muted)">Richest animal source</span></td>
+            <td><span style="color:#ef4444;font-weight:700">3,296 μg — 366% RDA/100g</span></td>
+            <td>25–50g weekly max</td>
+            <td><div style="display:flex;align-items:center;gap:.5rem"><div style="width:80px;height:8px;background:#1a2235;border-radius:4px;overflow:hidden"><div style="width:100%;height:100%;background:#ef4444;border-radius:4px"></div></div>366%!</div></td>
+            <td>Once weekly only. Avoid daily — risk of hypervitaminosis A.</td>
+            <td>₹15–25</td>
+          </tr>
+          <tr>
+            <td><strong>🌿 Moringa (Drumstick Leaves)</strong><br><span style="font-size:.72rem;color:var(--muted)">Sahjan Patta — superfood</span></td>
+            <td><span style="color:#10b981;font-weight:700">378 μg RAE / 100g dry</span></td>
+            <td>20g fresh leaves / 5g powder</td>
+            <td><div style="display:flex;align-items:center;gap:.5rem"><div style="width:80px;height:8px;background:#1a2235;border-radius:4px;overflow:hidden"><div style="width:38%;height:100%;background:#10b981;border-radius:4px"></div></div>38%</div></td>
+            <td>Drumstick sambar, moringa powder in dal/roti. South India staple.</td>
+            <td>₹2–5</td>
+          </tr>
+          <tr>
+            <td><strong>🌶️ Lal Shimla Mirch (Red Bell Pepper)</strong><br><span style="font-size:.72rem;color:var(--muted)">Raw preferred</span></td>
+            <td><span style="color:#ef4444;font-weight:700">157 μg RAE + Vit C 128mg</span></td>
+            <td>½ red pepper (75g)</td>
+            <td><div style="display:flex;align-items:center;gap:.5rem"><div style="width:80px;height:8px;background:#1a2235;border-radius:4px;overflow:hidden"><div style="width:18%;height:100%;background:#ef4444;border-radius:4px"></div></div>18%</div></td>
+            <td>Raw in salad, capsicum sabzi, stir-fry. Vit C enhances beta-carotene conversion.</td>
+            <td>₹8–15</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- DAILY MEAL PLAN -->
+    <div class="section-divider">
+      <h2>🍱 Evidence-Based Daily Meal Plan for Eye Health</h2>
+    </div>
+    <p style="color:var(--muted);font-size:.82rem;margin-bottom:1.2rem;">A structured Indian diet plan designed to meet AREDS2 nutritional targets and WHO Vitamin A requirements naturally through food. Cost: ₹40–80/day for the eye-health additions.</p>
+
+    <div class="meal-plan">
+      <div class="meal-card">
+        <div class="meal-time">🌅 Early Morning — 6:00–7:00 AM</div>
+        <div class="meal-title">Antioxidant Wake-Up Ritual</div>
+        <div class="meal-item">1–2 fresh Amla (gooseberry) or 10ml amla juice — 600mg Vit C</div>
+        <div class="meal-item">5 soaked walnuts (akhrot) — Omega-3, Vit E for retinal protection</div>
+        <div class="meal-item">1 tsp Triphala powder in warm water (optional) — Amalaki component is Vit C-rich</div>
+        <div class="meal-item">1 glass warm water with turmeric (½ tsp) — anti-inflammatory, anti-VEGF properties</div>
+        <div class="meal-nutrients">
+          <span class="mn-tag">Vit C 620mg</span><span class="mn-tag">Omega-3 2.5g</span><span class="mn-tag">Vit E 2.1mg</span>
+        </div>
+      </div>
+
+      <div class="meal-card">
+        <div class="meal-time">🌄 Breakfast — 8:00–9:00 AM</div>
+        <div class="meal-title">Lutein & Protein-Rich Start</div>
+        <div class="meal-item">2 egg omelette with palak (spinach) + methi — 12mg lutein, 245μg retinol</div>
+        <div class="meal-item">1 tsp desi ghee for cooking — enhances fat-soluble nutrient absorption 5×</div>
+        <div class="meal-item">1 medium gajar (carrot) raw — 835μg Vit A, 8.3mg beta-carotene</div>
+        <div class="meal-item">1 glass full-fat milk (fortified) — Vit A 28μg, calcium, Vit D</div>
+        <div class="meal-nutrients">
+          <span class="mn-tag">Vit A 1080μg</span><span class="mn-tag">Lutein 12mg</span><span class="mn-tag">Protein 16g</span>
+        </div>
+      </div>
+
+      <div class="meal-card">
+        <div class="meal-time">☀️ Mid-Morning Snack — 11:00 AM</div>
+        <div class="meal-title">Carotenoid Snack</div>
+        <div class="meal-item">½ ripe mango OR 1 papaya slice (100g) — beta-carotene + lycopene</div>
+        <div class="meal-item">1 handful sunflower seeds / til (sesame) — Vit E 7.4mg</div>
+        <div class="meal-item">Seasonal fruit: jamun (July–Sept), ber (winter), sitaphal (autumn)</div>
+        <div class="meal-nutrients">
+          <span class="mn-tag">Beta-carotene 1.1mg</span><span class="mn-tag">Vit E 7mg</span><span class="mn-tag">Vit C 35mg</span>
+        </div>
+      </div>
+
+      <div class="meal-card">
+        <div class="meal-time">🌞 Lunch — 1:00–2:00 PM</div>
+        <div class="meal-title">The AMD Protection Thali</div>
+        <div class="meal-item">Palak dal / saag with 1 tsp ghee — 469μg Vit A, 9mg lutein</div>
+        <div class="meal-item">Makkai ki roti (2 rotis) OR yellow maize + wheat mix — zeaxanthin 1.8mg</div>
+        <div class="meal-item">Gajar + tamatar salad with lemon — beta-carotene + lycopene + Vit C</div>
+        <div class="meal-item">Fish curry (rohu/katla) — 3×/week: DHA 0.8g, omega-3 for RPE</div>
+        <div class="meal-item">Shakarkand sabzi (2×/week) — 961μg Vit A, highest plant source</div>
+        <div class="meal-nutrients">
+          <span class="mn-tag">Vit A 900–1400μg</span><span class="mn-tag">Lutein 9mg</span><span class="mn-tag">DHA 0.8g</span>
+        </div>
+      </div>
+
+      <div class="meal-card">
+        <div class="meal-time">🌇 Evening Snack — 4:00–5:00 PM</div>
+        <div class="meal-title">Eye-Boosting Snack</div>
+        <div class="meal-item">Gajar ka juice (1 glass, 200ml) — 1670μg beta-carotene, natural retinol support</div>
+        <div class="meal-item">Handful of peanuts/groundnuts (moongphali) — Vit E, niacin, resveratrol</div>
+        <div class="meal-item">1 small cup sprouted moong dal — Vit C 4mg, zinc 1mg (essential for AMD)</div>
+        <div class="meal-nutrients">
+          <span class="mn-tag">Beta-carotene 1.7mg</span><span class="mn-tag">Zinc 1.2mg</span><span class="mn-tag">Vit E 3mg</span>
+        </div>
+      </div>
+
+      <div class="meal-card">
+        <div class="meal-time">🌙 Dinner — 7:30–8:30 PM</div>
+        <div class="meal-title">Anti-Inflammatory Dinner</div>
+        <div class="meal-item">Sarson da saag / palak sabzi with 1 tsp desi ghee — 10mg lutein</div>
+        <div class="meal-item">2 whole wheat / bajra roti (millet roti adds Zn, Fe)</div>
+        <div class="meal-item">Haldi doodh (turmeric milk) before bed — curcumin anti-angiogenic, anti-VEGF</div>
+        <div class="meal-item">Methi dana (fenugreek seeds soaked) — blood sugar control, AMD protection</div>
+        <div class="meal-nutrients">
+          <span class="mn-tag">Lutein 10mg</span><span class="mn-tag">Curcumin 100mg</span><span class="mn-tag">Zinc 2mg</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- DAILY NUTRIENT TARGETS -->
+    <div class="chart-row">
+      <div class="chart-card">
+        <div class="card-title">Daily Nutrient Targets — AMD Eye Health (Indian Diet)</div>
+        <div class="nutrient-bars">
+          <div class="nb-row"><div class="nb-label">Lutein + Zeaxanthin</div><div class="nb-track"><div class="nb-fill" style="width:85%;background:linear-gradient(90deg,#10b981,#34d399)">12mg diet</div></div><div class="nb-rda">Target: 10–12mg</div></div>
+          <div class="nb-row"><div class="nb-label">Vitamin C</div><div class="nb-track"><div class="nb-fill" style="width:90%;background:linear-gradient(90deg,#f59e0b,#fcd34d)">450mg food</div></div><div class="nb-rda">AREDS2: 500mg</div></div>
+          <div class="nb-row"><div class="nb-label">Vitamin E</div><div class="nb-track"><div class="nb-fill" style="width:75%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)">12mg food</div></div><div class="nb-rda">AREDS2: 400IU</div></div>
+          <div class="nb-row"><div class="nb-label">Omega-3 (DHA+EPA)</div><div class="nb-track"><div class="nb-fill" style="width:70%;background:linear-gradient(90deg,#3b82f6,#60a5fa)">1.4g fish/nuts</div></div><div class="nb-rda">Target: 2g/day</div></div>
+          <div class="nb-row"><div class="nb-label">Zinc</div><div class="nb-track"><div class="nb-fill" style="width:55%;background:linear-gradient(90deg,#e8a020,#f59e0b)">7mg food</div></div><div class="nb-rda">AREDS2: 80mg*</div></div>
+          <div class="nb-row"><div class="nb-label">Beta-Carotene</div><div class="nb-track"><div class="nb-fill" style="width:95%;background:linear-gradient(90deg,#ef4444,#f87171)">9.5mg food</div></div><div class="nb-rda">Excellent via diet</div></div>
+          <div class="nb-row"><div class="nb-label">Vitamin A (RAE)</div><div class="nb-track"><div class="nb-fill" style="width:100%;background:linear-gradient(90deg,#10b981,#34d399)">900μg diet</div></div><div class="nb-rda">RDA: 900μg ✓</div></div>
+        </div>
+        <div style="font-size:.68rem;color:var(--muted);margin-top:.8rem;">*Zinc therapeutic dose for AMD requires supplementation; dietary intake meets 9–10% only.</div>
+      </div>
+
+      <div class="chart-card">
+        <div class="card-title">Daily Nutrient Targets — VAD (Children & Women)</div>
+        <div class="nutrient-bars">
+          <div class="nb-row"><div class="nb-label">Vit A — Infants &lt;1yr</div><div class="nb-track"><div class="nb-fill" style="width:100%;background:linear-gradient(90deg,#10b981,#34d399)">400μg via BM</div></div><div class="nb-rda">RDA: 400μg</div></div>
+          <div class="nb-row"><div class="nb-label">Vit A — Child 1–3yr</div><div class="nb-track"><div class="nb-fill" style="width:70%;background:linear-gradient(90deg,#f59e0b,#fcd34d)">280μg diet</div></div><div class="nb-rda">RDA: 400μg</div></div>
+          <div class="nb-row"><div class="nb-label">Vit A — Child 4–8yr</div><div class="nb-track"><div class="nb-fill" style="width:65%;background:linear-gradient(90deg,#e8a020,#f59e0b)">390μg diet</div></div><div class="nb-rda">RDA: 600μg</div></div>
+          <div class="nb-row"><div class="nb-label">Vit A — Women</div><div class="nb-track"><div class="nb-fill" style="width:80%;background:linear-gradient(90deg,#8b5cf6,#a78bfa)">560μg diet</div></div><div class="nb-rda">RDA: 700μg</div></div>
+          <div class="nb-row"><div class="nb-label">Vit A — Pregnancy</div><div class="nb-track"><div class="nb-fill" style="width:60%;background:linear-gradient(90deg,#ef4444,#f87171)">560μg safe</div></div><div class="nb-rda">RDA: 800μg</div></div>
+          <div class="nb-row"><div class="nb-label">Vit A — Lactation</div><div class="nb-track"><div class="nb-fill" style="width:65%;background:linear-gradient(90deg,#3b82f6,#60a5fa)">720μg food</div></div><div class="nb-rda">RDA: 1300μg</div></div>
+          <div class="nb-row"><div class="nb-label">Zinc — Children</div><div class="nb-track"><div class="nb-fill" style="width:50%;background:linear-gradient(90deg,#10b981,#34d399)">4mg diet</div></div><div class="nb-rda">RDA: 8–11mg</div></div>
+        </div>
+        <div style="font-size:.68rem;color:var(--muted);margin-top:.8rem;">BM = Breast Milk. Diet values are typical Indian rural diets; urban diets often exceed these.</div>
+      </div>
+    </div>
+
+    <!-- AYURVEDA / HERBAL -->
+    <div class="section-divider">
+      <h2>🌱 Ayurvedic & Herbal Natural Remedies — Eye Care</h2>
+    </div>
+    <p style="color:var(--muted);font-size:.82rem;margin-bottom:1.2rem;">Traditional Indian Ayurvedic remedies with modern scientific validation for AMD and VAD management. Use as adjunct to medical treatment — not as replacement. Always inform your doctor.</p>
+
+    <div class="ayur-grid">
+      <div class="ayur-card">
+        <div class="ayur-header"><span style="font-size:1.5rem">🫚</span><div><div class="ayur-name">Triphala</div><div class="ayur-latin">Amalaki + Bibhitaki + Haritaki</div></div></div>
+        <div class="ayur-body">Classical Ayurvedic tridosha rasayana. Amalaki provides highest natural Vit C (600mg/100g). Bibhitaki has beta-carotene; Haritaki has chebulic acid (antioxidant). Studies show triphala eyewash reduces intraocular oxidative stress and corneal inflammation.</div>
+        <div class="ayur-how">💡 How to Use: ½ tsp triphala powder in 1 cup warm water, drink at bedtime. For eyewash: strain cooled triphala decoction, rinse eyes 1×/day.</div>
+        <div class="ayur-caution">⚠️ Caution: May loosen stools in high doses. Avoid eyewash if corneal ulcer present.</div>
+      </div>
+
+      <div class="ayur-card">
+        <div class="ayur-header"><span style="font-size:1.5rem">🌿</span><div><div class="ayur-name">Brahmi</div><div class="ayur-latin">Bacopa monnieri</div></div></div>
+        <div class="ayur-body">Classified as Medhya Rasayana — brain and sense organ tonic. Contains bacoside A+B which have antioxidant effects on retinal ganglion cells. Animal studies show reduction of retinal lipid peroxidation. May slow AMD progression via neuroprotective mechanisms.</div>
+        <div class="ayur-how">💡 How to Use: Brahmi ghee (medicated) — 1 tsp OD. Brahmi churna ½ tsp in milk at bedtime. Fresh brahmi leaves in chutney / salad.</div>
+        <div class="ayur-caution">⚠️ Caution: Avoid in thyroid disorders (may reduce T3/T4). Slows reaction — avoid before driving.</div>
+      </div>
+
+      <div class="ayur-card">
+        <div class="ayur-header"><span style="font-size:1.5rem">🌸</span><div><div class="ayur-name">Shatavari</div><div class="ayur-latin">Asparagus racemosus</div></div></div>
+        <div class="ayur-body">Specifically beneficial for VAD in pregnant and lactating women. Rich in saponins, folic acid, and immunomodulators. Enhances breast milk Vit A content when used by lactating mothers. Also supports iron absorption, which is often co-deficient with VAD.</div>
+        <div class="ayur-how">💡 How to Use: 1–2g shatavari churna in warm milk OD (for women). Shatavari granules (Himalaya, Dabur) — 2g BD. Available at Ayurvedic stores ₹100–200/month.</div>
+        <div class="ayur-caution">⚠️ Caution: Avoid in estrogen-sensitive conditions. Safe during lactation.</div>
+      </div>
+
+      <div class="ayur-card">
+        <div class="ayur-header"><span style="font-size:1.5rem">🟡</span><div><div class="ayur-name">Haldi (Turmeric)</div><div class="ayur-latin">Curcuma longa</div></div></div>
+        <div class="ayur-body">Curcumin (active compound) inhibits VEGF-A — the same pathway targeted by Ranibizumab/Bevacizumab. In vitro studies show curcumin induces RPE cell protection against oxidative damage. Reduces drusen formation in animal models. Anti-inflammatory, anti-angiogenic.</div>
+        <div class="ayur-how">💡 How to Use: Haldi doodh (golden milk) — 1 glass with ½ tsp turmeric + pinch black pepper (enhances absorption 20×) + 1 tsp ghee. Daily at bedtime.</div>
+        <div class="ayur-caution">⚠️ Caution: High doses (&gt;8g/day) may inhibit iron absorption. Avoid large doses in gallstones.</div>
+      </div>
+
+      <div class="ayur-card">
+        <div class="ayur-header"><span style="font-size:1.5rem">🌾</span><div><div class="ayur-name">Shatapushpa (Dill Seeds)</div><div class="ayur-latin">Anethum graveolens</div></div></div>
+        <div class="ayur-body">Traditionally used in Netratarpana (eye rejuvenation therapy). Contains anethofuran, limonene, and flavonoids with documented retinal antioxidant activity. Rich in Vit A (zeaxanthin) and kaempferol which reduce RPE oxidative damage. Used in Ayurvedic Trayushna formulations.</div>
+        <div class="ayur-how">💡 How to Use: Add fresh dill leaves to dal, raita, and salads. Dill seed tea: boil ½ tsp seeds in 1 cup water — drink daily.</div>
+        <div class="ayur-caution">⚠️ Caution: Avoid in pregnancy in medicinal doses (may stimulate uterus). Culinary use safe.</div>
+      </div>
+
+      <div class="ayur-card">
+        <div class="ayur-header"><span style="font-size:1.5rem">🌰</span><div><div class="ayur-name">Ashwagandha</div><div class="ayur-latin">Withania somnifera</div></div></div>
+        <div class="ayur-body">Withanolides in ashwagandha upregulate Nrf2 antioxidant pathway — the same pathway AMD supplementation targets. Particularly useful for AMD patients with systemic inflammation, stress-related HTN (AMD risk factor). Adaptogenic — reduces cortisol which can exacerbate AMD.</div>
+        <div class="ayur-how">💡 How to Use: Ashwagandha churna ½ tsp in warm milk at bedtime OD. KSM-66 standardized extract 300mg BD (available as Patanjali Ashwagandha, Himalaya StressCare).</div>
+        <div class="ayur-caution">⚠️ Caution: Avoid in autoimmune conditions, thyroid disease. Check with physician if on thyroid meds.</div>
+      </div>
+
+      <div class="ayur-card">
+        <div class="ayur-header"><span style="font-size:1.5rem">🌿</span><div><div class="ayur-name">Moringa (Sahjan)</div><div class="ayur-latin">Moringa oleifera — Indian Superfood</div></div></div>
+        <div class="ayur-body">Drumstick leaves contain complete nutritional profile: 4× Vit A of carrots, 7× Vit C of oranges, 3× iron of spinach. Isothiocyanates act as anti-VEGF agents. Quercetin reduces oxidative stress in choroidal cells. Used in child VAD programs in Karnataka and Tamil Nadu.</div>
+        <div class="ayur-how">💡 How to Use: 20–30g fresh leaves in sambar, dal, sabzi daily. 1–2 tsp moringa powder added to rotis, dal, or juice. Drumstick pods (murungakkai) cooked regularly. Cost: ₹2–5/day.</div>
+        <div class="ayur-caution">⚠️ Caution: Very high doses may be abortifacient — limit to 20g/day in pregnancy. Root bark avoid entirely in pregnancy.</div>
+      </div>
+
+      <div class="ayur-card">
+        <div class="ayur-header"><span style="font-size:1.5rem">🫐</span><div><div class="ayur-name">Bilberry / Neelabadari</div><div class="ayur-latin">Vaccinium myrtillus — Nordic berry</div></div></div>
+        <div class="ayur-body">Rich in anthocyanins (delphinidin, cyanidin, malvidin) which accelerate rhodopsin regeneration for night vision. Reduces capillary fragility in retina. Multiple clinical trials show improvement in dark adaptation within 2–4 weeks. Indian substitute: Jamun provides similar anthocyanin profile.</div>
+        <div class="ayur-how">💡 How to Use: Bilberry extract 160mg BD (Vitrum Vision, Ocuvite in India). Or 150g fresh Jamun (in season) daily as local equivalent. Jamun vinegar available year-round.</div>
+        <div class="ayur-caution">⚠️ Caution: Mild antiplatelet effect — inform surgeon before any eye surgery.</div>
+      </div>
+    </div>
+
+    <!-- THERAPEUTIC RECIPES -->
+    <div class="section-divider">
+      <h2>🍲 Therapeutic Indian Recipes — Eye Health Kitchen</h2>
+    </div>
+
+    <div class="recipe-grid">
+      <div class="recipe-card">
+        <div class="recipe-title">Nayan Jyoti Saag</div>
+        <div class="recipe-subtitle">RETINA-PROTECTIVE · 10mg Lutein per serving</div>
+        <div class="recipe-step"><div class="step-num">1</div><div class="step-text">Wash & chop 250g palak + 100g methi + 50g sarson leaves together</div></div>
+        <div class="recipe-step"><div class="step-num">2</div><div class="step-text">Heat 2 tsp desi ghee in heavy kadhai; add 1 tsp jeera, 2 garlic cloves, ½ inch ginger</div></div>
+        <div class="recipe-step"><div class="step-num">3</div><div class="step-text">Add chopped onion, sauté till golden. Add 1 tomato + ½ tsp haldi + 1 tsp coriander powder</div></div>
+        <div class="recipe-step"><div class="step-num">4</div><div class="step-text">Add greens, cook covered for 8–10 min. Blend coarsely. Top with 1 tsp extra ghee</div></div>
+        <div class="recipe-step"><div class="step-num">5</div><div class="step-text">Serve with makkai ki roti for zeaxanthin pairing. Eat immediately for max lutein retention.</div></div>
+        <div class="recipe-stat">
+          <span class="rstat">Lutein: 10mg</span><span class="rstat">Vit A: 820μg</span><span class="rstat">Vit C: 55mg</span><span class="rstat">Iron: 4.2mg</span>
+        </div>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title">AMD Fighter Gajar Halwa</div>
+        <div class="recipe-subtitle">BETA-CAROTENE RICH · Not just dessert — medicine!</div>
+        <div class="recipe-step"><div class="step-num">1</div><div class="step-text">Grate 500g fresh red gajar (Indian red carrots have 2× carotene vs orange)</div></div>
+        <div class="recipe-step"><div class="step-num">2</div><div class="step-text">Cook grated carrot in 2 tbsp desi ghee on medium heat for 15 min (ghee = fat-soluble carrier)</div></div>
+        <div class="recipe-step"><div class="step-num">3</div><div class="step-text">Add 250ml full-fat milk, cook till absorbed (40 min). Add 3 tbsp jaggery (natural sugar + iron)</div></div>
+        <div class="recipe-step"><div class="step-num">4</div><div class="step-text">Add 5 crushed cardamom, 1 tbsp each: raisins + akhrot (walnut) + kaju (cashew)</div></div>
+        <div class="recipe-step"><div class="step-num">5</div><div class="step-text">1 serving (150g) = full daily Vit A requirement. Safe, delicious, affordable daily dose.</div></div>
+        <div class="recipe-stat">
+          <span class="rstat">Vit A: 1250μg RAE</span><span class="rstat">Beta-carotene: 12.5mg</span><span class="rstat">Omega-3: 0.4g</span>
+        </div>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title">VAD Fighter Moringa Dal</div>
+        <div class="recipe-subtitle">VITAMIN A POWERHOUSE · For children & women</div>
+        <div class="recipe-step"><div class="step-num">1</div><div class="step-text">Cook 1 cup moong/tuvar dal with 2 drumstick pods (murungakkai) cut in 3-inch pieces</div></div>
+        <div class="recipe-step"><div class="step-num">2</div><div class="step-text">Add ½ cup moringa leaves (sahjan patta) in last 5 min of cooking (preserves Vit A)</div></div>
+        <div class="recipe-step"><div class="step-num">3</div><div class="step-text">Tadka: 1 tsp ghee + mustard seeds + curry leaves + 1 dry red chilli + pinch hing</div></div>
+        <div class="recipe-step"><div class="step-num">4</div><div class="step-text">Add 1 tomato + ½ tsp haldi + salt. Simmer 5 min. Ghee in tadka boosts fat-soluble Vit A.</div></div>
+        <div class="recipe-step"><div class="step-num">5</div><div class="step-text">Serve with 1–2 rotis. Ideal for children's lunch — palatable, affordable, high Vit A.</div></div>
+        <div class="recipe-stat">
+          <span class="rstat">Vit A: 580μg</span><span class="rstat">Iron: 5.2mg</span><span class="rstat">Protein: 14g</span><span class="rstat">Cost: ₹12–18</span>
+        </div>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title">Chyawanprash Eye Tonic Milk</div>
+        <div class="recipe-subtitle">AYURVEDIC AREDS EQUIVALENT · Bedtime ritual</div>
+        <div class="recipe-step"><div class="step-num">1</div><div class="step-text">Heat 250ml full-fat milk till warm (not boiling). Boiling destroys some Vit A in milk.</div></div>
+        <div class="recipe-step"><div class="step-num">2</div><div class="step-text">Add 1 tsp Chyawanprash (Dabur/Baidyanath/Patanjali) — 36 Ayurvedic herbs + Amalaki Vit C base</div></div>
+        <div class="recipe-step"><div class="step-num">3</div><div class="step-text">Add ½ tsp haldi (curcumin = anti-VEGF) + pinch black pepper (piperine enhances absorption)</div></div>
+        <div class="recipe-step"><div class="step-num">4</div><div class="step-text">Add ½ tsp ashwagandha powder (reduces AMD-linked systemic inflammation)</div></div>
+        <div class="recipe-step"><div class="step-num">5</div><div class="step-text">Drink warm at bedtime. Complete eye-health tonic for AMD patients. Cost: ₹15–20/day.</div></div>
+        <div class="recipe-stat">
+          <span class="rstat">Vit C: 180mg</span><span class="rstat">Vit A: 28μg</span><span class="rstat">Curcumin: 90mg</span><span class="rstat">Adaptogens ✓</span>
+        </div>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title">Nayan Shakti Smoothie</div>
+        <div class="recipe-subtitle">VAD CHILD-FRIENDLY · Quick morning solution</div>
+        <div class="recipe-step"><div class="step-num">1</div><div class="step-text">Blend: 1 ripe mango (100g) + 1 medium gajar (chopped) + 1 fresh amla OR 10ml amla juice</div></div>
+        <div class="recipe-step"><div class="step-num">2</div><div class="step-text">Add 200ml full-fat yogurt (dahi) — probiotic + Vit A + calcium</div></div>
+        <div class="recipe-step"><div class="step-num">3</div><div class="step-text">Add 1 tsp moringa powder (for children — tasteless in smoothie), 1 tsp honey</div></div>
+        <div class="recipe-step"><div class="step-num">4</div><div class="step-text">Blend smooth. Serve immediately. Can be given to children 2+ years. Sweet, palatable.</div></div>
+        <div class="recipe-step"><div class="step-num">5</div><div class="step-text">For VAD children — this smoothie meets 80% daily Vit A need in one serving.</div></div>
+        <div class="recipe-stat">
+          <span class="rstat">Vit A: 720μg</span><span class="rstat">Vit C: 650mg</span><span class="rstat">Beta-carotene: 9mg</span><span class="rstat">₹20–30</span>
+        </div>
+      </div>
+
+      <div class="recipe-card">
+        <div class="recipe-title">Retina Revive Egg Bowl</div>
+        <div class="recipe-subtitle">AREDS2-ALIGNED · High lutein + omega-3 breakfast</div>
+        <div class="recipe-step"><div class="step-num">1</div><div class="step-text">Sauté 1 handful palak + ½ red capsicum + 3 cherry tomatoes in 1 tsp olive oil/ghee</div></div>
+        <div class="recipe-step"><div class="step-num">2</div><div class="step-text">Add 2 whole eggs (with yolk!) — scramble gently, keeping yolk partially soft for max lutein</div></div>
+        <div class="recipe-step"><div class="step-num">3</div><div class="step-text">Season: black pepper (piperine enhances carotenoid absorption), sendha namak, jeera</div></div>
+        <div class="recipe-step"><div class="step-num">4</div><div class="step-text">Top with 5 walnut halves (crushed) — DHA omega-3 for photoreceptor membrane health</div></div>
+        <div class="recipe-step"><div class="step-num">5</div><div class="step-text">Pair with 1 glass amla juice. Complete AMD breakfast meeting AREDS2 micro-targets via food alone.</div></div>
+        <div class="recipe-stat">
+          <span class="rstat">Lutein: 13mg</span><span class="rstat">Omega-3: 2.5g</span><span class="rstat">Vit C: 620mg</span><span class="rstat">Protein: 18g</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOODS TO AVOID -->
+    <div class="full-card" style="background:linear-gradient(135deg,rgba(239,68,68,0.06),rgba(245,158,11,0.04));border-color:rgba(239,68,68,0.18);">
+      <div class="card-title">🚫 Foods to Avoid / Limit — AMD & VAD Patients</div>
+      <table class="data-table">
+        <thead><tr><th>Food / Habit</th><th>Why Harmful</th><th>Indian Context</th><th>Safe Alternative</th></tr></thead>
+        <tbody>
+          <tr><td>Vanaspati (Hydrogenated Fat) / Dalda</td><td>Trans fats oxidize retinal membranes, increase VEGF expression</td><td>Used in street food, mithai, bakery items across India</td><td>Use desi ghee or cold-pressed oils</td></tr>
+          <tr><td>Maida (Refined Flour) — Excess</td><td>High glycemic index → oxidative stress → drusen formation</td><td>Bread, pav, biscuits, naan — daily staple in urban India</td><td>Whole wheat atta, bajra, jowar rotis</td></tr>
+          <tr><td>Smoking (Bidi/Cigarette)</td><td>3.6× AMD risk; destroys retinal antioxidants; nicotine causes choroidal vasoconstriction</td><td>28.6% male smokers in India; bidi smoking underestimated</td><td>Nicotine replacement therapy under NTCP</td></tr>
+          <tr><td>High-Salt Diet (Namak Excess)</td><td>Raises BP → choroidal damage → AMD progression</td><td>Indian diet 10–12g salt/day vs WHO's 5g limit</td><td>Use lemon/amchur/herbs for flavoring</td></tr>
+          <tr><td>Excess Sugar / Mithai</td><td>AGE products damage RPE; diabetes worsens AMD outcomes</td><td>Festival mithai, chai with 3 tsp sugar — daily habit</td><td>Jaggery (gur) in moderation, fruit sweets</td></tr>
+          <tr><td>Excess Alcohol</td><td>Depletes retinol stores; toxic to RPE cells; increases AMD risk</td><td>Rising urban alcohol consumption in India</td><td>Limit to ≤1 unit/day if any; avoid during VAD</td></tr>
+          <tr><td>Raw Carrot Excess (children)</td><td>Carotenodermia (skin yellowing) — benign but indicates excess</td><td>Parents giving only carrot for Vit A — limit to 1–2/day</td><td>Diversify with palak, moringa, mango</td></tr>
+          <tr><td>Liver (Chicken/Mutton) — Daily</td><td>Hypervitaminosis A: headache, bone pain, liver toxicity at &gt;10,000μg/day</td><td>Eating liver daily as Vit A fix — common misconception</td><td>Liver 1× per week maximum is safe and beneficial</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+
+  <!-- ===== PREVENTION ===== -->
+  <section id="prevention" class="section">
+    <div class="info-box">
+      <h3>Prevention Strategies & National Programs</h3>
+      <p>India has robust national programs addressing both AMD (under NPCB) and VAD (under POSHAN Abhiyaan, NHM). Primary prevention focuses on diet, lifestyle modification, and early screening. Secondary prevention relies on regular fundus examinations and Vitamin A supplementation rounds.</p>
+    </div>
+
+    <div class="chart-row">
+      <div class="chart-card">
+        <div class="card-title">AMD Prevention — Lifestyle & Dietary</div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-title">Smoking Cessation</div><div class="tl-desc">Reduces AMD risk by 3.6×. India: 28.6% male smokers. NRT patches/gums + counseling under NTCP. Strongest modifiable risk factor.</div></div>
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-title">Dietary Antioxidants</div><div class="tl-desc">Increase lutein/zeaxanthin-rich foods: spinach, methi, eggs, yellow maize, citrus. Target 6mg lutein + 2mg zeaxanthin daily from diet.</div></div>
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-title">UV Protection</div><div class="tl-desc">UV400 sunglasses mandatory outdoors in India's tropical climate. Reduces chronic photodamage. Wide-brim hats recommended for outdoor workers.</div></div>
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-title">Blood Pressure & Sugar Control</div><div class="tl-desc">Maintain BP &lt;130/80 mmHg, HbA1c &lt;7%. HTN and DM both increase AMD progression risk significantly in Indian patients.</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Regular Eye Screening</div><div class="tl-desc">Annual fundus examination after age 50. OCT scan recommended every 6 months for intermediate AMD. Amsler grid self-monitoring weekly.</div></div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="card-title">VAD Prevention — National Programs India</div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-title">Vitamin A Supplementation (NHM)</div><div class="tl-desc">Free 2,00,000 IU dose every 6 months for children 9 months–5 years. Delivered via ASHAs and Anganwadi workers. Coverage: 62% nationally.</div></div>
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-title">POSHAN Abhiyaan</div><div class="tl-desc">PM's Overarching Scheme for Holistic Nutrition — targets stunting, wasting, anemia. Integrates Vitamin A with other micronutrient programs.</div></div>
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-title">Food Fortification</div><div class="tl-desc">FSSAI-mandated fortification of refined wheat flour, rice (pilot), edible oil with Vitamin A. Double fortified salt (DFS) program ongoing.</div></div>
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-title">ICDS — Integrated Child Development</div><div class="tl-desc">Anganwadi supplementary nutrition includes Vit A-rich foods. Targets 6 months–6 years, pregnant and lactating women across India.</div></div>
+          <div class="tl-item"><div class="tl-dot"></div><div class="tl-title">Mid-Day Meal Program</div><div class="tl-desc">School meals include egg, green vegetables — major dietary Vit A source for school-age children. Covers 120 million children.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="full-card">
+      <div class="card-title">Recommended Indian Foods — AMD & VAD Prevention</div>
+      <table class="data-table">
+        <thead><tr><th>Food (Indian)</th><th>Key Nutrient</th><th>Benefit</th><th>Amount/Day</th><th>Cost (approx.)</th></tr></thead>
+        <tbody>
+          <tr><td>Palak / Saag (Spinach)</td><td>Lutein, Zeaxanthin, Vit A</td><td>AMD + VAD prevention</td><td>100g cooked</td><td>₹5–10</td></tr>
+          <tr><td>Gajar (Carrot)</td><td>Beta-carotene (Vit A)</td><td>VAD prevention, night blindness</td><td>1 medium carrot</td><td>₹5–8</td></tr>
+          <tr><td>Aam (Mango)</td><td>Beta-carotene, Vit C</td><td>Antioxidant, VAD prevention</td><td>1 medium fruit</td><td>₹10–20</td></tr>
+          <tr><td>Amla (Indian Gooseberry)</td><td>Vitamin C (700mg/100g)</td><td>AMD oxidative protection</td><td>1–2 amla</td><td>₹5–10</td></tr>
+          <tr><td>Eggs (Anda)</td><td>Lutein, Zeaxanthin, Vit A</td><td>AMD + VAD (highest bioavail)</td><td>1–2 eggs/day</td><td>₹6–10</td></tr>
+          <tr><td>Shakarkand (Sweet Potato)</td><td>Beta-carotene</td><td>VAD — highest plant source</td><td>100g</td><td>₹10–15</td></tr>
+          <tr><td>Methi (Fenugreek leaves)</td><td>Vit A, Lutein, Iron</td><td>AMD + VAD, especially women</td><td>50g cooked</td><td>₹5–8</td></tr>
+          <tr><td>Makhan / Ghee (Dairy fat)</td><td>Retinol (preformed Vit A)</td><td>Direct Vitamin A source</td><td>1 tsp ghee</td><td>₹5–8</td></tr>
+          <tr><td>Papita (Papaya)</td><td>Beta-carotene, Vit C</td><td>Antioxidant protection (AMD)</td><td>100g fruit</td><td>₹10–15</td></tr>
+          <tr><td>Walnuts / Flaxseed (Akhrot)</td><td>Omega-3, Vit E</td><td>AMD anti-inflammatory</td><td>30g nuts</td><td>₹15–25</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="chart-row">
+      <div class="chart-card">
+        <div class="card-title">Screening Recommendations — India</div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-title">Age 50–60: Annual Fundus Exam</div><div class="tl-desc">Dilated funduscopy by ophthalmologist. Check for early drusen. OCT if symptoms present. Available at ophthalmology OPDs.</div></div>
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-title">Age 60+: 6-monthly Monitoring</div><div class="tl-desc">OCT scan every 6 months. Fundus fluorescein angiography (FFA) if neovascularization suspected. Amsler grid monthly at home.</div></div>
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-title">Children 6–72 months: VAD Screening</div><div class="tl-desc">Serum retinol + conjunctival impression cytology at PHC. Night blindness history by ASHA workers. Bitot's spot clinical exam.</div></div>
+          <div class="tl-item"><div class="tl-dot active"></div><div class="tl-title">Pregnant Women: ANC Visits</div><div class="tl-desc">Night blindness query at every ANC visit. Dietary assessment. Referral if symptomatic. Postpartum supplementation at discharge.</div></div>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="card-title">Govt. Schemes for Eye Care — India</div>
+        <div class="bar-chart" style="gap:1rem;">
+          <div style="background:rgba(232,160,32,0.1);border:1px solid rgba(232,160,32,0.2);border-radius:8px;padding:1rem;">
+            <div style="font-weight:600;color:#fff;font-size:.85rem;margin-bottom:.3rem;">National Programme for Control of Blindness (NPCB)</div>
+            <div style="font-size:.75rem;color:var(--muted);line-height:1.6;">Free cataract surgeries, glaucoma screening, low vision services. AMD screening integration ongoing. Budget: ₹230 crore/year.</div>
+          </div>
+          <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:1rem;">
+            <div style="font-weight:600;color:#fff;font-size:.85rem;margin-bottom:.3rem;">Ayushman Bharat — PM-JAY</div>
+            <div style="font-size:.75rem;color:var(--muted);line-height:1.6;">Covers intravitreal injections for AMD under empanelled hospitals. ₹5 lakh coverage per family/year. ~50 crore beneficiaries.</div>
+          </div>
+          <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);border-radius:8px;padding:1rem;">
+            <div style="font-weight:600;color:#fff;font-size:.85rem;margin-bottom:.3rem;">Vitamin A Supplementation — NHM</div>
+            <div style="font-size:.75rem;color:var(--muted);line-height:1.6;">Free supplementation to 10+ crore children biannually. Integrated with immunization rounds. Coverage target: 90% by 2025.</div>
+          </div>
+          <div style="background:rgba(139,92,246,0.1);border:1px solid rgba(139,92,246,0.2);border-radius:8px;padding:1rem;">
+            <div style="font-weight:600;color:#fff;font-size:.85rem;margin-bottom:.3rem;">LV Prasad Eye Institute / Aravind Eye Care</div>
+            <div style="font-size:.75rem;color:var(--muted);line-height:1.6;">Largest social eye care networks. Subsidized/free AMD treatment for BPL patients. Telemedicine for rural AMD screening.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="full-card" style="background:linear-gradient(135deg,rgba(232,160,32,0.08),rgba(16,185,129,0.05));border-color:rgba(232,160,32,0.2);">
+      <div class="card-title">⚠️ Emergency Referral Criteria</div>
+      <table class="data-table">
+        <thead><tr><th>Condition</th><th>Red Flag Signs</th><th>Action</th><th>Timeframe</th></tr></thead>
+        <tbody>
+          <tr><td>Wet AMD</td><td>Sudden central vision distortion, new blind spot, straight lines appear wavy</td><td>Emergency intravitreal anti-VEGF</td><td><span class="pill pill-red">Within 24–48 hours</span></td></tr>
+          <tr><td>Keratomalacia (VAD)</td><td>Corneal melting, perforation, severe pain + photophobia in malnourished child</td><td>Immediate IM Vitamin A + antibiotic + tertiary referral</td><td><span class="pill pill-red">Immediate</span></td></tr>
+          <tr><td>AMD + Vitreous Hemorrhage</td><td>Sudden floaters + vision loss + shower of spots</td><td>Urgent FFA + OCT + anti-VEGF</td><td><span class="pill pill-red">Same day</span></td></tr>
+          <tr><td>VAD Corneal Ulcer (X3)</td><td>Corneal opacity + chemosis + discharge in VAD child</td><td>Topical antibiotics + Vit A + patch eye</td><td><span class="pill pill-yellow">Within 6 hours</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ===== SYMPTOMS VERIFICATION MODULE ===== -->
+  <section id="symptoms" class="section">
+
+    <div class="symptom-intro">
+      <div class="symptom-intro-icon">🩺</div>
+      <div>
+        <h3>Nutrient Deficiency Symptom Verification</h3>
+        <p>Identify clinical and subclinical signs of key nutrient deficiencies. Each symptom is mapped to its deficient nutrient, affected body system, severity level, and recommended clinical action. Use the filter to view symptoms by nutrient. <strong style="color:#fcd34d;">Note:</strong> This module is for educational awareness only — always confirm deficiency through blood tests and consult a qualified physician.</p>
+      </div>
+    </div>
+
+    <!-- Overview Table -->
+    <div class="section-divider"><h2>Deficiency at a Glance</h2></div>
+    <div class="deficiency-overview">
+      <table class="def-table">
+        <thead>
+          <tr>
+            <th>Nutrient</th>
+            <th>Primary Deficiency Disease</th>
+            <th>Key At-Risk Groups (India)</th>
+            <th>Prevalence (India)</th>
+            <th>Diagnostic Test</th>
+            <th>Risk Level</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><div class="def-nut-name">🟡 Vitamin A (Retinol)</div><div class="def-nut-sub">Fat-soluble antioxidant</div></td>
+            <td>Xerophthalmia, Night Blindness</td>
+            <td>Children &lt;5 yrs, Pregnant women, Rural poor</td>
+            <td><span class="pill pill-red">17.5% children</span></td>
+            <td>Serum retinol &lt;0.70 µmol/L</td>
+            <td><div class="risk-bar"><div class="risk-seg filled" style="background:#ef4444"></div><div class="risk-seg filled" style="background:#ef4444"></div><div class="risk-seg filled" style="background:#ef4444"></div><div class="risk-seg filled" style="background:#ef4444"></div><div class="risk-seg" ></div></div></td>
+          </tr>
+          <tr>
+            <td><div class="def-nut-name">🔴 Iron (Fe)</div><div class="def-nut-sub">Hemoglobin synthesis</div></td>
+            <td>Iron Deficiency Anemia</td>
+            <td>Women of reproductive age, Adolescent girls, Children</td>
+            <td><span class="pill pill-red">57% children &lt;5</span></td>
+            <td>Serum ferritin &lt;12 µg/L, Hb &lt;11 g/dL</td>
+            <td><div class="risk-bar"><div class="risk-seg filled" style="background:#ef4444"></div><div class="risk-seg filled" style="background:#ef4444"></div><div class="risk-seg filled" style="background:#ef4444"></div><div class="risk-seg filled" style="background:#ef4444"></div><div class="risk-seg filled" style="background:#ef4444"></div></div></td>
+          </tr>
+          <tr>
+            <td><div class="def-nut-name">☀️ Vitamin D (Calciferol)</div><div class="def-nut-sub">Bone & immune health</div></td>
+            <td>Rickets (children), Osteomalacia (adults)</td>
+            <td>Urban population, Indoor workers, Elderly, Veiled women</td>
+            <td><span class="pill pill-yellow">70–90% urban adults</span></td>
+            <td>25(OH)D &lt;20 ng/mL deficient</td>
+            <td><div class="risk-bar"><div class="risk-seg filled" style="background:#f59e0b"></div><div class="risk-seg filled" style="background:#f59e0b"></div><div class="risk-seg filled" style="background:#f59e0b"></div><div class="risk-seg filled" style="background:#f59e0b"></div><div class="risk-seg"></div></div></td>
+          </tr>
+          <tr>
+            <td><div class="def-nut-name">🩸 Vitamin B12 (Cobalamin)</div><div class="def-nut-sub">Nerve & DNA function</div></td>
+            <td>Megaloblastic Anemia, Neuropathy</td>
+            <td>Vegetarians, Vegans, Elderly, Infants of deficient mothers</td>
+            <td><span class="pill pill-yellow">47% vegetarians</span></td>
+            <td>Serum B12 &lt;200 pg/mL</td>
+            <td><div class="risk-bar"><div class="risk-seg filled" style="background:#f59e0b"></div><div class="risk-seg filled" style="background:#f59e0b"></div><div class="risk-seg filled" style="background:#f59e0b"></div><div class="risk-seg"></div><div class="risk-seg"></div></div></td>
+          </tr>
+          <tr>
+            <td><div class="def-nut-name">🍊 Vitamin C (Ascorbic acid)</div><div class="def-nut-sub">Antioxidant & collagen</div></td>
+            <td>Scurvy</td>
+            <td>Malnourished children, Alcoholics, Low fruit intake</td>
+            <td><span class="pill pill-green">Rare but underdiagnosed</span></td>
+            <td>Plasma ascorbate &lt;11 µmol/L</td>
+            <td><div class="risk-bar"><div class="risk-seg filled" style="background:#10b981"></div><div class="risk-seg filled" style="background:#10b981"></div><div class="risk-seg"></div><div class="risk-seg"></div><div class="risk-seg"></div></div></td>
+          </tr>
+          <tr>
+            <td><div class="def-nut-name">⚡ Zinc (Zn)</div><div class="def-nut-sub">Immune & wound healing</div></td>
+            <td>Growth retardation, Immune dysfunction</td>
+            <td>Children, Vegetarians, Those on cereal-heavy diets</td>
+            <td><span class="pill pill-yellow">~25% children</span></td>
+            <td>Serum zinc &lt;70 µg/dL</td>
+            <td><div class="risk-bar"><div class="risk-seg filled" style="background:#f59e0b"></div><div class="risk-seg filled" style="background:#f59e0b"></div><div class="risk-seg filled" style="background:#f59e0b"></div><div class="risk-seg"></div><div class="risk-seg"></div></div></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Severity Legend + Filter -->
+    <div class="section-divider"><h2>Symptom Cards</h2></div>
+
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:1rem; margin-bottom:1rem;">
+      <div class="severity-legend">
+        <span style="font-size:.72rem; color:var(--muted); font-family:'IBM Plex Mono',monospace; margin-right:.3rem;">SEVERITY:</span>
+        <div class="sl-item"><div class="sl-dot" style="background:#ef4444"></div>Critical</div>
+        <div class="sl-item"><div class="sl-dot" style="background:#f59e0b"></div>Moderate</div>
+        <div class="sl-item"><div class="sl-dot" style="background:#10b981"></div>Mild</div>
+      </div>
+    </div>
+
+    <div class="nutrient-filters">
+      <div class="nf-pill active" onclick="filterSymptoms('all',this)" style="--nf-color:#e2e8f0">🔍 All Nutrients</div>
+      <div class="nf-pill" onclick="filterSymptoms('vitA',this)" style="--nf-color:#f59e0b"><span class="nf-dot"></span>Vitamin A</div>
+      <div class="nf-pill" onclick="filterSymptoms('iron',this)" style="--nf-color:#ef4444"><span class="nf-dot"></span>Iron</div>
+      <div class="nf-pill" onclick="filterSymptoms('vitD',this)" style="--nf-color:#fbbf24"><span class="nf-dot"></span>Vitamin D</div>
+      <div class="nf-pill" onclick="filterSymptoms('vitB12',this)" style="--nf-color:#a78bfa"><span class="nf-dot"></span>Vitamin B12</div>
+      <div class="nf-pill" onclick="filterSymptoms('vitC',this)" style="--nf-color:#34d399"><span class="nf-dot"></span>Vitamin C</div>
+      <div class="nf-pill" onclick="filterSymptoms('zinc',this)" style="--nf-color:#60a5fa"><span class="nf-dot"></span>Zinc</div>
+    </div>
+
+    <!-- Symptom Cards Grid -->
+    <div class="symptom-grid" id="symptomGrid">
+
+      <!-- VITAMIN A: Night Blindness -->
+      <div class="symptom-card" data-nutrient="vitA">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://www.laxmieyehospital.com/wp-content/uploads/2023/02/night-blindness.jpg" alt="Night Blindness" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Night_blindness.jpg/640px-Night_blindness.jpg'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(245,158,11,0.25);border-color:rgba(245,158,11,0.5);color:#fcd34d;">Vitamin A</div>
+          <div class="symptom-severity" style="background:rgba(239,68,68,0.25);">🔴</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Night Blindness (Nyctalopia)</div>
+          <div class="symptom-hindi">रतौंधी — Rataundhi</div>
+          <div class="symptom-desc">Inability to see clearly in dim light or darkness. One of the earliest and most recognizable signs of Vitamin A deficiency. The retina's rod photoreceptors require retinal (derived from Vitamin A) to generate visual signals in low-light conditions.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">Weeks to months of poor dietary intake; may appear earlier in children</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Eyes (rod photoreceptors, retina)</span></div>
+            <div class="sd-row"><span class="sd-label">WHO Stage</span><span class="sd-val">XN — Earliest clinical xerophthalmia sign</span></div>
+            <div class="sd-row"><span class="sd-label">India Data</span><span class="sd-val">0.9% pregnant women; up to 2.3% in rural UP, Bihar, MP</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">💊</span>Immediate: Oral Vitamin A 200,000 IU × 2 doses; dietary counseling</div>
+        </div>
+      </div>
+
+      <!-- VITAMIN A: Xerophthalmia / Bitot's Spots -->
+      <div class="symptom-card" data-nutrient="vitA">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://www.pps.org.ph/assets/upload/1564974778.jpg" alt="Bitot's Spots Xerophthalmia" onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Bitot%27s_spots.jpg/640px-Bitot%27s_spots.jpg'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(245,158,11,0.25);border-color:rgba(245,158,11,0.5);color:#fcd34d;">Vitamin A</div>
+          <div class="symptom-severity" style="background:rgba(239,68,68,0.25);">🔴</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Bitot's Spots & Xerophthalmia</div>
+          <div class="symptom-hindi">बिटोट के धब्बे — Xerophthalmia</div>
+          <div class="symptom-desc">Grayish-white, foamy, triangular plaques on the conjunctiva (white of the eye). Caused by keratinization of conjunctival cells due to Vitamin A deficiency. Can progress to corneal ulceration and permanent blindness if untreated.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">After prolonged deficiency — typically months to years</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Conjunctiva, cornea — irreversible if advanced</span></div>
+            <div class="sd-row"><span class="sd-label">WHO Stage</span><span class="sd-val">X1B — Clinical xerophthalmia, requires urgent treatment</span></div>
+            <div class="sd-row"><span class="sd-label">India Data</span><span class="sd-val">0.8% prevalence in children under 6 years (NFHS-5)</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">🏥</span>Emergency: High-dose Vitamin A + ophthalmic referral within 24–48 hrs</div>
+        </div>
+      </div>
+
+      <!-- VITAMIN A: Dry Rough Skin -->
+      <div class="symptom-card" data-nutrient="vitA">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://i0.wp.com/post.healthline.com/wp-content/uploads/2019/11/vitamin-a-deficiency-skin-1296x728-header.jpg" alt="Dry skin Vitamin A deficiency" onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(245,158,11,0.25);border-color:rgba(245,158,11,0.5);color:#fcd34d;">Vitamin A</div>
+          <div class="symptom-severity" style="background:rgba(245,158,11,0.25);">🟡</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Dry, Rough & Scaly Skin</div>
+          <div class="symptom-hindi">रूखी त्वचा — Rukhi Twacha</div>
+          <div class="symptom-desc">Follicular hyperkeratosis — small, rough, raised bumps resembling "goosebumps" that don't go away. Skin becomes dry, flaky, and may develop a rough texture especially on the arms, thighs, and back. Vitamin A is essential for skin cell production and repair.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">Gradual; appears after weeks–months of dietary insufficiency</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Skin (epidermis) — arms, thighs, back, scalp</span></div>
+            <div class="sd-row"><span class="sd-label">Look For</span><span class="sd-val">Phrynoderma (toad skin) — rough, horny follicular plugs</span></div>
+            <div class="sd-row"><span class="sd-label">Also Seen</span><span class="sd-val">Essential fatty acid deficiency, B-complex deficiency</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">🥕</span>Dietary: Increase carrots, sweet potato, spinach, eggs; supplement if needed</div>
+        </div>
+      </div>
+
+      <!-- IRON: Pallor / Pale Skin -->
+      <div class="symptom-card" data-nutrient="iron">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://images.healthshots.com/healthshots/en/uploads/2023/01/18191044/iron-deficiency-anemia.jpg" alt="Iron deficiency anemia pale skin" onerror="this.src='https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(239,68,68,0.25);border-color:rgba(239,68,68,0.5);color:#fca5a5;">Iron</div>
+          <div class="symptom-severity" style="background:rgba(239,68,68,0.25);">🔴</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Pallor & Extreme Fatigue</div>
+          <div class="symptom-hindi">पीलापन और थकान — Anemia</div>
+          <div class="symptom-desc">Pale skin, pale inner eyelids (conjunctival pallor), and persistent fatigue are hallmark signs of iron-deficiency anemia. Iron is required to make hemoglobin, which carries oxygen. Low iron → less oxygen to tissues → weakness and breathlessness.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">Months of insufficient intake; worsened by menstrual loss, pregnancy</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Blood, muscles, brain — systemic oxygen deprivation</span></div>
+            <div class="sd-row"><span class="sd-label">Clinical Test</span><span class="sd-val">Check inner eyelid (conjunctival pallor), nail beds, palm creases</span></div>
+            <div class="sd-row"><span class="sd-label">India Data</span><span class="sd-val">57% children &lt;5, 53% non-pregnant women affected (NFHS-5)</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">🔬</span>Lab: CBC + Serum ferritin; Treat: IFA tablets 100mg elemental iron/day</div>
+        </div>
+      </div>
+
+      <!-- IRON: Koilonychia -->
+      <div class="symptom-card" data-nutrient="iron">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Koilonychia.jpg/640px-Koilonychia.jpg" alt="Koilonychia spoon nails iron deficiency" onerror="this.src='https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(239,68,68,0.25);border-color:rgba(239,68,68,0.5);color:#fca5a5;">Iron</div>
+          <div class="symptom-severity" style="background:rgba(245,158,11,0.25);">🟡</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Koilonychia (Spoon Nails)</div>
+          <div class="symptom-hindi">चम्मच जैसे नाखून — Chamach Nakhun</div>
+          <div class="symptom-desc">Fingernails become thin, brittle, and develop an abnormal concave (spoon-shaped) curvature. This distinctive sign is strongly associated with chronic iron deficiency anemia. The nail can hold a drop of water due to its abnormal shape.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">Months to years of chronic iron deficiency</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Fingernails — concave, brittle, easily broken</span></div>
+            <div class="sd-row"><span class="sd-label">Specificity</span><span class="sd-val">Highly specific for iron deficiency when dietary history matches</span></div>
+            <div class="sd-row"><span class="sd-label">Other Signs</span><span class="sd-val">Often co-occurs with angular cheilitis, glossitis, hair loss</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">🩺</span>Confirm with serum ferritin + CBC; Supplement: Iron + B12 combo if needed</div>
+        </div>
+      </div>
+
+      <!-- VITAMIN D: Bone Pain & Rickets -->
+      <div class="symptom-card" data-nutrient="vitD">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://my.clevelandclinic.org/-/scassets/images/org/health/articles/15050-vitamin-d-deficiency" alt="Vitamin D deficiency bone pain" onerror="this.src='https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(251,191,36,0.25);border-color:rgba(251,191,36,0.5);color:#fcd34d;">Vitamin D</div>
+          <div class="symptom-severity" style="background:rgba(239,68,68,0.25);">🔴</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Bone Pain & Muscle Weakness</div>
+          <div class="symptom-hindi">हड्डियों में दर्द — Haddiyon mein Dard</div>
+          <div class="symptom-desc">Persistent deep aching pain in the bones (especially legs, pelvis, spine), muscle weakness, and difficulty walking. In children, severe deficiency causes Rickets — bowed legs, soft skull, delayed tooth eruption. In adults, it presents as Osteomalacia.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">Months to years; worsened by indoor lifestyle + no sunlight</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Skeletal system, muscles — calcium absorption impaired</span></div>
+            <div class="sd-row"><span class="sd-label">India Data</span><span class="sd-val">70–90% urban adults deficient; rampant in veiled women, elderly</span></div>
+            <div class="sd-row"><span class="sd-label">Diagnosis</span><span class="sd-val">25(OH)Vitamin D &lt;20 ng/mL = deficient; &lt;12 = severe</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">☀️</span>Supplement: 60,000 IU cholecalciferol weekly × 8 wks; 15 min daily sun</div>
+        </div>
+      </div>
+
+      <!-- VITAMIN D: Hair Loss -->
+      <div class="symptom-card" data-nutrient="vitD">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://images.healthshots.com/healthshots/en/uploads/2022/10/28194004/hair-loss-vitamin-d.jpg" alt="Hair loss vitamin D deficiency" onerror="this.src='https://images.unsplash.com/photo-1519699047748-de8e457a634e?w=600'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(251,191,36,0.25);border-color:rgba(251,191,36,0.5);color:#fcd34d;">Vitamin D</div>
+          <div class="symptom-severity" style="background:rgba(16,185,129,0.25);">🟢</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Hair Thinning & Loss (Alopecia)</div>
+          <div class="symptom-hindi">बालों का झड़ना — Baalon ka Jhadna</div>
+          <div class="symptom-desc">Vitamin D receptors in hair follicles regulate the hair growth cycle. Deficiency leads to diffuse hair thinning, excessive shedding, and in some cases alopecia areata (patchy hair loss). Often overlooked as a vitamin D symptom but strongly linked in studies.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">Gradual; may precede other vitamin D symptoms by months</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Hair follicles on scalp; sometimes eyebrows and body hair</span></div>
+            <div class="sd-row"><span class="sd-label">Look For</span><span class="sd-val">Diffuse shedding + fatigue + bone aches = likely Vit D deficiency</span></div>
+            <div class="sd-row"><span class="sd-label">Differential</span><span class="sd-val">Also check thyroid, iron, zinc, biotin — multi-deficiency common</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">🔬</span>Test 25(OH)D + TSH + serum ferritin before treating hair loss</div>
+        </div>
+      </div>
+
+      <!-- VITAMIN B12: Neurological -->
+      <div class="symptom-card" data-nutrient="vitB12">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://gabaonlinepsychiatrist.com/wp-content/uploads/2023/07/B12-Deficiency.jpg" alt="Vitamin B12 deficiency neurological" onerror="this.src='https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(167,139,250,0.25);border-color:rgba(167,139,250,0.5);color:#c4b5fd;">Vitamin B12</div>
+          <div class="symptom-severity" style="background:rgba(239,68,68,0.25);">🔴</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Numbness, Tingling & Memory Loss</div>
+          <div class="symptom-hindi">सुन्नपन और भूलना — Sunnpan</div>
+          <div class="symptom-desc">Vitamin B12 is essential for myelin sheath formation (nerve insulation). Deficiency causes peripheral neuropathy — pins-and-needles sensations in hands and feet, cognitive decline, memory problems, and in severe cases subacute combined degeneration of spinal cord.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">Insidious; years of deficiency before neurological signs appear</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Nervous system (irreversible if prolonged), blood cell formation</span></div>
+            <div class="sd-row"><span class="sd-label">High Risk</span><span class="sd-val">Pure vegetarians, vegans — B12 only in animal foods</span></div>
+            <div class="sd-row"><span class="sd-label">India Data</span><span class="sd-val">47% of pure vegetarians, 73% of vegans deficient</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">💉</span>Severe: Cyanocobalamin 1000µg IM daily × 7d; Maintenance: 1000µg oral/day</div>
+        </div>
+      </div>
+
+      <!-- VITAMIN B12: Glossitis -->
+      <div class="symptom-card" data-nutrient="vitB12">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Glossitis_B12.jpg/640px-Glossitis_B12.jpg" alt="B12 glossitis smooth tongue" onerror="this.src='https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(167,139,250,0.25);border-color:rgba(167,139,250,0.5);color:#c4b5fd;">Vitamin B12</div>
+          <div class="symptom-severity" style="background:rgba(245,158,11,0.25);">🟡</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Glossitis — Smooth Swollen Tongue</div>
+          <div class="symptom-hindi">जीभ की सूजन — Jibh ki Sujan</div>
+          <div class="symptom-desc">The tongue becomes abnormally smooth (loss of papillae), swollen, red, and sore — a condition called glossitis. Also seen with iron and folate deficiency. The tongue may appear "beefy red" and painful, making eating uncomfortable. One of the key oral signs of B12 deficiency.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">Months of deficiency; often coexists with megaloblastic anemia</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Tongue mucosa, oral cavity — also angular cheilitis (mouth corners)</span></div>
+            <div class="sd-row"><span class="sd-label">Differential</span><span class="sd-val">Iron deficiency, folate deficiency, riboflavin deficiency, niacin</span></div>
+            <div class="sd-row"><span class="sd-label">Diagnosis</span><span class="sd-val">Serum B12 + MCV (macrocytic anemia if MCV &gt;100 fL)</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">🧬</span>Test: Serum B12, folate, iron panel; Supplement accordingly</div>
+        </div>
+      </div>
+
+      <!-- VITAMIN C: Bleeding Gums -->
+      <div class="symptom-card" data-nutrient="vitC">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://cancertherapyadvisor.com/wp-content/uploads/sites/12/2019/11/Scurvy_1059209904.jpg" alt="Vitamin C deficiency scurvy bleeding gums" onerror="this.src='https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(52,211,153,0.25);border-color:rgba(52,211,153,0.5);color:#6ee7b7;">Vitamin C</div>
+          <div class="symptom-severity" style="background:rgba(239,68,68,0.25);">🔴</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Bleeding Gums & Perifollicular Hemorrhage</div>
+          <div class="symptom-hindi">मसूड़ों से खून — Masoodon se Khoon (Scurvy)</div>
+          <div class="symptom-desc">Vitamin C is essential for collagen synthesis. Deficiency leads to Scurvy: swollen, spongy, bleeding gums; small hemorrhages around hair follicles (perifollicular hemorrhages); corkscrew-shaped body hair; and impaired wound healing. Once fatal among sailors.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">1–3 months of near-zero Vitamin C intake</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Gums, blood vessels, skin, joints — collagen breakdown</span></div>
+            <div class="sd-row"><span class="sd-label">Risk India</span><span class="sd-val">Malnourished children, alcoholics, those on fruit-poor diets</span></div>
+            <div class="sd-row"><span class="sd-label">Diagnosis</span><span class="sd-val">Clinical signs + plasma ascorbate &lt;11 µmol/L; dietary history</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">🍊</span>Treatment: Ascorbic acid 300–1000mg/day; Amla (Indian gooseberry) daily</div>
+        </div>
+      </div>
+
+      <!-- VITAMIN C: Poor Wound Healing -->
+      <div class="symptom-card" data-nutrient="vitC">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=600&q=80" alt="Poor wound healing vitamin C" onerror="this.src='https://images.unsplash.com/photo-1559757175-5700dde675bc?w=600'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(52,211,153,0.25);border-color:rgba(52,211,153,0.5);color:#6ee7b7;">Vitamin C</div>
+          <div class="symptom-severity" style="background:rgba(245,158,11,0.25);">🟡</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Poor Wound Healing & Easy Bruising</div>
+          <div class="symptom-hindi">घाव न भरना — Ghav na Bharna</div>
+          <div class="symptom-desc">Cuts, bruises, and wounds heal slowly or reopen due to impaired collagen synthesis. Even old, healed scars may break down. Easy bruising from fragile blood vessels is an early sign. The skin may appear thin, dry, and prone to damage even from minor contact.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">Early sign — appears within 4–8 weeks of severe deficiency</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Skin, connective tissue, blood vessels throughout the body</span></div>
+            <div class="sd-row"><span class="sd-label">Look For</span><span class="sd-val">Corkscrew body hair + perifollicular petechiae = classic scurvy</span></div>
+            <div class="sd-row"><span class="sd-label">Co-nutrient</span><span class="sd-val">Also check zinc and protein levels — all needed for wound healing</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">🥭</span>Dietary: Amla, guava, lemon, bell pepper; Supplement 500mg Vit C/day</div>
+        </div>
+      </div>
+
+      <!-- ZINC: Impaired Taste & Smell -->
+      <div class="symptom-card" data-nutrient="zinc">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://images.unsplash.com/photo-1505275350441-83dcda8eeef5?w=600&q=80" alt="Zinc deficiency taste smell loss" onerror="this.src='https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(96,165,250,0.25);border-color:rgba(96,165,250,0.5);color:#93c5fd;">Zinc</div>
+          <div class="symptom-severity" style="background:rgba(245,158,11,0.25);">🟡</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Impaired Taste & Smell (Hypogeusia)</div>
+          <div class="symptom-hindi">स्वाद न आना — Swaad na Aana</div>
+          <div class="symptom-desc">Zinc is essential for the function of gustin, an enzyme in saliva needed for taste receptor maintenance. Zinc deficiency causes hypogeusia (reduced taste) and hyposmia (reduced smell). Appetite decreases, leading to further nutrient deficiency — a vicious cycle common in malnourished children.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">Relatively early sign — appears within weeks of severe deficiency</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Taste buds, olfactory receptor cells, appetite regulation</span></div>
+            <div class="sd-row"><span class="sd-label">India Data</span><span class="sd-val">~25% children deficient; common in cereal-heavy diets (phytates block zinc)</span></div>
+            <div class="sd-row"><span class="sd-label">Diagnosis</span><span class="sd-val">Serum plasma zinc &lt;70 µg/dL; 24hr dietary recall</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">💊</span>Supplement: Zinc sulfate 20mg/day for children; 40mg/day for adults × 3 months</div>
+        </div>
+      </div>
+
+      <!-- ZINC: Dermatitis & Skin Rash -->
+      <div class="symptom-card" data-nutrient="zinc">
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://www.healthline.com/hlcmsresource/images/topic_centers/2019-8/zinc-deficiency-hair-loss-1296x728-header.jpg" alt="Zinc deficiency skin rash hair loss" onerror="this.src='https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600'">
+          <div class="symptom-img-overlay"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(96,165,250,0.25);border-color:rgba(96,165,250,0.5);color:#93c5fd;">Zinc</div>
+          <div class="symptom-severity" style="background:rgba(245,158,11,0.25);">🟡</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name">Skin Rash, Hair Loss & Delayed Growth</div>
+          <div class="symptom-hindi">त्वचा पर चकत्ते — Twacha par Chakte</div>
+          <div class="symptom-desc">Acrodermatitis enteropathica — a severe zinc deficiency syndrome causing a distinctive skin rash around the mouth, eyes, and genitals. Accompanied by hair loss, diarrhea, and immune dysfunction. In children, zinc deficiency is a major cause of growth stunting and impaired immune response.</div>
+          <div class="symptom-details">
+            <div class="sd-row"><span class="sd-label">Onset</span><span class="sd-val">Months of deficiency; severe form seen in malabsorption conditions</span></div>
+            <div class="sd-row"><span class="sd-label">Affected</span><span class="sd-val">Skin, hair, immune system, growth — multi-system involvement</span></div>
+            <div class="sd-row"><span class="sd-label">Rash Pattern</span><span class="sd-val">Symmetric, around orifices (mouth, eyes, genitals) — classic pattern</span></div>
+            <div class="sd-row"><span class="sd-label">Co-deficiency</span><span class="sd-val">Often combined with Vitamin A deficiency in malnourished children</span></div>
+          </div>
+          <div class="symptom-action"><span class="sa-icon">🌰</span>Food: Pumpkin seeds, meat, legumes, nuts; Avoid tea/coffee with meals (blocks zinc)</div>
+        </div>
+      </div>
+
+      <!-- ZINC: Eye Health & Macular Degeneration — HIGHLIGHTED -->
+      <div class="symptom-card" data-nutrient="zinc" style="
+        border: 2px solid rgba(96,165,250,0.7) !important;
+        box-shadow: 0 0 0 1px rgba(96,165,250,0.3), 0 0 32px rgba(96,165,250,0.2), inset 0 0 40px rgba(96,165,250,0.04);
+        background: linear-gradient(135deg, rgba(96,165,250,0.12), rgba(59,130,246,0.06), rgba(10,14,26,0.95)) !important;
+        position: relative;
+      ">
+        <!-- FEATURED badge -->
+        <div style="position:absolute;top:.75rem;left:50%;transform:translateX(-50%);z-index:10;background:linear-gradient(90deg,#3b82f6,#60a5fa);color:#fff;font-size:.62rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;padding:.25rem .9rem;border-radius:999px;font-family:'IBM Plex Mono',monospace;white-space:nowrap;box-shadow:0 4px 12px rgba(59,130,246,0.45);">⭐ KEY FOCUS — Zinc &amp; Eye Health</div>
+        <div class="symptom-img-wrap">
+          <img class="symptom-card-img" src="https://images.unsplash.com/photo-1588776814546-1ffad6d2dc5f?w=600&q=80" alt="Zinc deficiency macular degeneration retina" onerror="this.src='https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=600'">
+          <div class="symptom-img-overlay" style="background:linear-gradient(to top, rgba(10,14,26,0.98) 0%, rgba(10,14,26,0.5) 60%, transparent 100%)"></div>
+          <div class="symptom-nutrient-tag" style="background:rgba(59,130,246,0.35);border-color:rgba(96,165,250,0.7);color:#bfdbfe;font-weight:700;">Zinc — Eye Health</div>
+          <div class="symptom-severity" style="background:rgba(239,68,68,0.35);">🔴</div>
+        </div>
+        <div class="symptom-card-body">
+          <div class="symptom-name" style="font-size:1.05rem;color:#fff;">Zinc Deficiency &amp; Eye Health — Retinal Impact</div>
+          <div class="symptom-hindi" style="color:#93c5fd;">दृष्टि हानि — Drushti Haani (Zinc &amp; Macula)</div>
+          <div class="symptom-desc" style="font-size:.85rem;line-height:1.85;color:#cbd5e1;">
+            Zinc is one of the most highly concentrated minerals in the human retina — particularly in the <strong style="color:#93c5fd;">retinal pigment epithelium (RPE)</strong> and choroid. It plays a critical role in Vitamin A metabolism (activating retinol to retinal), protecting photoreceptor cells from oxidative damage, and maintaining the structural integrity of the macula. Zinc deficiency impairs these protective mechanisms, directly accelerating macular degeneration.
+          </div>
+
+          <!-- 4-point highlight grid -->
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin:.9rem 0;">
+            <div style="background:rgba(59,130,246,0.12);border:1px solid rgba(96,165,250,0.3);border-radius:8px;padding:.7rem .9rem;">
+              <div style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#60a5fa;font-family:'IBM Plex Mono',monospace;margin-bottom:.35rem;">① Retinal Concentration</div>
+              <div style="font-size:.78rem;color:#e2e8f0;line-height:1.6;">Zinc is highly concentrated in the retina — especially in the RPE layer that nourishes photoreceptors. It is essential for Vitamin A activation and visual cycle function.</div>
+            </div>
+            <div style="background:rgba(239,68,68,0.1);border:1px solid rgba(239,68,68,0.3);border-radius:8px;padding:.7rem .9rem;">
+              <div style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#f87171;font-family:'IBM Plex Mono',monospace;margin-bottom:.35rem;">② AMD Acceleration</div>
+              <div style="font-size:.78rem;color:#e2e8f0;line-height:1.6;">Low zinc levels may worsen or accelerate macular degeneration. Clinical trials show zinc supplementation slows AMD progression by up to 25% (AREDS2 data).</div>
+            </div>
+            <div style="background:rgba(245,158,11,0.1);border:1px solid rgba(245,158,11,0.3);border-radius:8px;padding:.7rem .9rem;">
+              <div style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#fbbf24;font-family:'IBM Plex Mono',monospace;margin-bottom:.35rem;">③ Vision Distortion</div>
+              <div style="font-size:.78rem;color:#e2e8f0;line-height:1.6;">Central vision becomes blurry or distorted (metamorphopsia). Straight lines appear wavy — an early Amsler grid warning sign linked to zinc-mediated RPE deterioration.</div>
+            </div>
+            <div style="background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:8px;padding:.7rem .9rem;">
+              <div style="font-size:.62rem;text-transform:uppercase;letter-spacing:1px;color:#34d399;font-family:'IBM Plex Mono',monospace;margin-bottom:.35rem;">④ Multi-system Eye Impact</div>
+              <div style="font-size:.78rem;color:#e2e8f0;line-height:1.6;">Delayed wound healing in the eye post-surgery, reduced antioxidant protection (zinc is a cofactor for SOD enzyme), and impaired dark adaptation all result from zinc depletion.</div>
+            </div>
+          </div>
+
+          <div class="symptom-details" style="border-color:rgba(96,165,250,0.25);">
+            <div class="sd-row"><span class="sd-label">Retina Role</span><span class="sd-val">Zinc activates Vitamin A → retinal for rhodopsin (night vision pigment)</span></div>
+            <div class="sd-row"><span class="sd-label">AMD Link</span><span class="sd-val">AREDS2 trial: 80mg Zinc + antioxidants reduced advanced AMD risk by 25%</span></div>
+            <div class="sd-row"><span class="sd-label">Eye Signs</span><span class="sd-val">Blurred central vision, distorted lines, delayed dark adaptation</span></div>
+            <div class="sd-row"><span class="sd-label">Diagnosis</span><span class="sd-val">Serum plasma zinc &lt;70 µg/dL; correlate with OCT macular thickness</span></div>
+          </div>
+          <div class="symptom-action" style="background:linear-gradient(135deg,rgba(59,130,246,0.2),rgba(96,165,250,0.1));border-color:rgba(96,165,250,0.4);color:#bfdbfe;"><span class="sa-icon">👁️</span>AREDS2 Protocol: Zinc 80mg + Vit C 500mg + Vit E 400IU + Lutein 10mg/Zeaxanthin 2mg daily for AMD</div>
+        </div>
+      </div>
+
+    </div><!-- end symptom-grid -->
+
+    <!-- Self-Check Section -->
+    <div class="section-divider"><h2>Quick Self-Assessment Guide</h2></div>
+    <div class="self-check-grid">
+      <div class="sc-card" style="background:rgba(245,158,11,0.06);border-color:rgba(245,158,11,0.2);--sc-glow:rgba(245,158,11,0.2)">
+        <div class="sc-emoji">🟡</div>
+        <div class="sc-title">Vitamin A — Check These</div>
+        <div class="sc-checks">
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(245,158,11,0.5);color:#fcd34d;">✓</div>Difficulty seeing in dim light or at night?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(245,158,11,0.5);color:#fcd34d;">✓</div>Dry, itchy eyes — especially in the morning?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(245,158,11,0.5);color:#fcd34d;">✓</div>Rough bumpy skin on upper arms or thighs?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(245,158,11,0.5);color:#fcd34d;">✓</div>Frequent infections (skin, throat, respiratory)?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(245,158,11,0.5);color:#fcd34d;">✓</div>Child: stunted growth, delayed development?</div>
+        </div>
+      </div>
+      <div class="sc-card" style="background:rgba(239,68,68,0.06);border-color:rgba(239,68,68,0.2);--sc-glow:rgba(239,68,68,0.2)">
+        <div class="sc-emoji">🔴</div>
+        <div class="sc-title">Iron — Check These</div>
+        <div class="sc-checks">
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(239,68,68,0.5);color:#fca5a5;">✓</div>Pale inner eyelids when pulled down?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(239,68,68,0.5);color:#fca5a5;">✓</div>Unusual fatigue even with adequate sleep?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(239,68,68,0.5);color:#fca5a5;">✓</div>Brittle, spoon-shaped or ridged nails?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(239,68,68,0.5);color:#fca5a5;">✓</div>Craving ice, clay, or non-food items (pica)?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(239,68,68,0.5);color:#fca5a5;">✓</div>Shortness of breath on minimal exertion?</div>
+        </div>
+      </div>
+      <div class="sc-card" style="background:rgba(251,191,36,0.06);border-color:rgba(251,191,36,0.2);--sc-glow:rgba(251,191,36,0.2)">
+        <div class="sc-emoji">☀️</div>
+        <div class="sc-title">Vitamin D — Check These</div>
+        <div class="sc-checks">
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(251,191,36,0.5);color:#fde68a;">✓</div>Deep aching bone pain — legs, back, pelvis?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(251,191,36,0.5);color:#fde68a;">✓</div>Muscle weakness — difficulty climbing stairs?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(251,191,36,0.5);color:#fde68a;">✓</div>Indoors most of the day, limited sun exposure?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(251,191,36,0.5);color:#fde68a;">✓</div>Frequent colds, infections, low immunity?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(251,191,36,0.5);color:#fde68a;">✓</div>Depression, low mood, brain fog?</div>
+        </div>
+      </div>
+      <div class="sc-card" style="background:rgba(167,139,250,0.06);border-color:rgba(167,139,250,0.2);--sc-glow:rgba(167,139,250,0.2)">
+        <div class="sc-emoji">🩸</div>
+        <div class="sc-title">Vitamin B12 — Check These</div>
+        <div class="sc-checks">
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(167,139,250,0.5);color:#c4b5fd;">✓</div>Tingling or numbness in hands/feet?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(167,139,250,0.5);color:#c4b5fd;">✓</div>Memory problems or brain fog?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(167,139,250,0.5);color:#c4b5fd;">✓</div>Smooth, sore, or red tongue?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(167,139,250,0.5);color:#c4b5fd;">✓</div>Strict vegetarian or vegan diet?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(167,139,250,0.5);color:#c4b5fd;">✓</div>Pale yellow skin tinge (jaundice-like)?</div>
+        </div>
+      </div>
+      <div class="sc-card" style="background:rgba(52,211,153,0.06);border-color:rgba(52,211,153,0.2);--sc-glow:rgba(52,211,153,0.2)">
+        <div class="sc-emoji">🍊</div>
+        <div class="sc-title">Vitamin C — Check These</div>
+        <div class="sc-checks">
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(52,211,153,0.5);color:#6ee7b7;">✓</div>Bleeding or swollen gums while brushing?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(52,211,153,0.5);color:#6ee7b7;">✓</div>Wounds healing slower than usual?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(52,211,153,0.5);color:#6ee7b7;">✓</div>Easy bruising from minor bumps?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(52,211,153,0.5);color:#6ee7b7;">✓</div>Rough, corkscrew body hair?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(52,211,153,0.5);color:#6ee7b7;">✓</div>Rarely eat fresh fruits or raw vegetables?</div>
+        </div>
+      </div>
+      <div class="sc-card" style="background:rgba(96,165,250,0.06);border-color:rgba(96,165,250,0.2);--sc-glow:rgba(96,165,250,0.2)">
+        <div class="sc-emoji">⚡</div>
+        <div class="sc-title">Zinc — Check These</div>
+        <div class="sc-checks">
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(96,165,250,0.5);color:#93c5fd;">✓</div>Food tastes bland or has no flavor?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(96,165,250,0.5);color:#93c5fd;">✓</div>Slow-healing skin wounds or acne?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(96,165,250,0.5);color:#93c5fd;">✓</div>Frequent colds lasting more than a week?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(96,165,250,0.5);color:#93c5fd;">✓</div>Child: poor growth, short stature, low appetite?</div>
+          <div class="sc-item"><div class="sc-check" style="border-color:rgba(96,165,250,0.5);color:#93c5fd;">✓</div>White spots on fingernails (leukonychia)?</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Disclaimer -->
+    <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:12px;padding:1.2rem 1.5rem;margin-bottom:1.5rem;display:flex;gap:1rem;align-items:flex-start;">
+      <div style="font-size:1.4rem;flex-shrink:0;">⚠️</div>
+      <div>
+        <div style="font-weight:700;color:#fca5a5;font-size:.85rem;margin-bottom:.4rem;">Important Clinical Disclaimer</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.7;">Symptoms overlap significantly between different nutrient deficiencies. A single symptom alone does not confirm a deficiency. <strong style="color:var(--text);">Always confirm with blood tests</strong> (serum retinol, ferritin, CBC, 25(OH)D, serum B12, plasma zinc) before supplementing. High-dose supplementation without confirmed deficiency can be harmful — Vitamin A toxicity, for example, causes severe liver damage. Consult your physician, especially for children and pregnant women.</div>
+      </div>
+    </div>
+
+  </section>
+  <!-- ===== END SYMPTOMS MODULE ===== -->
+
+  <!-- ===== TEAM DETAILS ===== -->
+  <section id="team" class="section">
+
+    <!-- College Banner -->
+    <div style="
+      background: linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(139,92,246,0.08) 50%, rgba(232,160,32,0.08) 100%);
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    ">
+      <!-- Decorative circles -->
+      <div style="position:absolute;top:-40px;left:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(59,130,246,0.12),transparent);pointer-events:none;"></div>
+      <div style="position:absolute;bottom:-40px;right:-40px;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(232,160,32,0.1),transparent);pointer-events:none;"></div>
+
+      <div style="font-size:3rem;margin-bottom:1rem;">🎓</div>
+      <div style="font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:3px;color:var(--accent2);text-transform:uppercase;margin-bottom:.6rem;">Institution</div>
+      <h2 style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#fff;margin-bottom:.4rem;">KL University</h2>
+      <div style="font-size:.85rem;color:var(--muted);margin-bottom:1.2rem;">Koneru Lakshmaiah Education Foundation · Deemed to be University</div>
+
+      <div style="display:inline-flex;gap:.8rem;flex-wrap:wrap;justify-content:center;">
+        <span style="background:rgba(232,160,32,0.15);border:1px solid rgba(232,160,32,0.35);color:#fcd34d;padding:.4rem 1.1rem;border-radius:999px;font-size:.75rem;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;">📚 Capstone Project 2</span>
+        <span style="background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.3);color:#6ee7b7;padding:.4rem 1.1rem;border-radius:999px;font-size:.75rem;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;">🏥 Health Analytics Dashboard</span>
+        <span style="background:rgba(139,92,246,0.12);border:1px solid rgba(139,92,246,0.3);color:#c4b5fd;padding:.4rem 1.1rem;border-radius:999px;font-size:.75rem;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;">📊 AMD & Vitamin A Deficiency</span>
+      </div>
+    </div>
+
+    <!-- Project Info -->
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.2rem;margin-bottom:2rem;">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.4rem;">
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent);font-family:'IBM Plex Mono',monospace;margin-bottom:.8rem;">Subject</div>
+        <div style="font-size:1.1rem;font-weight:700;color:#fff;font-family:'Playfair Display',serif;">Capstone Project 2</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:.4rem;line-height:1.6;">An integrative research and development project combining clinical data analytics, epidemiology, and health informatics into an interactive web dashboard.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.4rem;">
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--accent2);font-family:'IBM Plex Mono',monospace;margin-bottom:.8rem;">Project Title</div>
+        <div style="font-size:1.05rem;font-weight:700;color:#fff;font-family:'Playfair Display',serif;">AMD & Vitamin A Deficiency in Older People</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:.4rem;line-height:1.6;">India Health Analytics Dashboard — covering epidemiology, risk factors, treatment protocols, and symptom verification for age 60+ population.</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.4rem;">
+        <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:1.5px;color:#6ee7b7;font-family:'IBM Plex Mono',monospace;margin-bottom:.8rem;">Data Sources</div>
+        <div style="font-size:.78rem;color:var(--muted);line-height:1.8;">ICMR Guidelines · NFHS-5 (2019–21) · WHO India · NPCB Annual Report 2023 · AIIMS Geriatric Studies · AIOS Clinical Protocols · Lancet India</div>
+      </div>
+    </div>
+
+    <!-- Team Members -->
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:1.2rem;">👥 Project Team</div>
+
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:1.5rem;margin-bottom:2rem;">
+
+      <!-- Team Lead -->
+      <div style="
+        background: linear-gradient(135deg, rgba(232,160,32,0.08), rgba(245,158,11,0.04));
+        border: 1px solid rgba(232,160,32,0.3);
+        border-radius: 16px;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+      ">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#e8a020,#f59e0b);border-radius:16px 16px 0 0;"></div>
+        <div style="position:absolute;top:1rem;right:1.2rem;background:rgba(232,160,32,0.15);border:1px solid rgba(232,160,32,0.3);color:#fcd34d;padding:.2rem .7rem;border-radius:999px;font-size:.6rem;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;text-transform:uppercase;">⭐ Team Lead</div>
+
+        <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#e8a020,#f59e0b);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.2rem;box-shadow:0 0 20px rgba(232,160,32,0.35);">👨‍💻</div>
+
+        <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:#fff;margin-bottom:.3rem;">M. Bhargav</div>
+        <div style="font-size:.72rem;color:var(--accent);font-family:'IBM Plex Mono',monospace;letter-spacing:.5px;margin-bottom:1.2rem;">TEAM LEAD · PROJECT ARCHITECT</div>
+
+        <div style="display:flex;flex-direction:column;gap:.7rem;">
+          <div style="display:flex;align-items:center;gap:.8rem;">
+            <div style="width:28px;height:28px;border-radius:8px;background:rgba(232,160,32,0.12);border:1px solid rgba(232,160,32,0.25);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">🪪</div>
+            <div>
+              <div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-family:'IBM Plex Mono',monospace;">Roll Number</div>
+              <div style="font-size:.9rem;font-weight:700;color:#fff;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;">2200039111</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.8rem;">
+            <div style="width:28px;height:28px;border-radius:8px;background:rgba(232,160,32,0.12);border:1px solid rgba(232,160,32,0.25);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">🎓</div>
+            <div>
+              <div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-family:'IBM Plex Mono',monospace;">Institution</div>
+              <div style="font-size:.82rem;font-weight:600;color:var(--text);">KL University</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.8rem;">
+            <div style="width:28px;height:28px;border-radius:8px;background:rgba(232,160,32,0.12);border:1px solid rgba(232,160,32,0.25);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">📋</div>
+            <div>
+              <div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-family:'IBM Plex Mono',monospace;">Subject</div>
+              <div style="font-size:.82rem;font-weight:600;color:var(--text);">Capstone Project 2</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.8rem;margin-top:.3rem;padding:.6rem .9rem;background:rgba(232,160,32,0.08);border:1px solid rgba(232,160,32,0.3);border-radius:8px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:rgba(232,160,32,0.18);border:1px solid rgba(232,160,32,0.4);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">🎖️</div>
+            <div>
+              <div style="font-size:.6rem;color:var(--accent);text-transform:uppercase;letter-spacing:1px;font-family:'IBM Plex Mono',monospace;font-weight:600;">Guide Name</div>
+              <div style="font-size:.86rem;font-weight:700;color:var(--accent);">V. Chandra Prakash Sir</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Student 2 -->
+      <div style="
+        background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(96,165,250,0.04));
+        border: 1px solid rgba(59,130,246,0.25);
+        border-radius: 16px;
+        padding: 2rem;
+        position: relative;
+        overflow: hidden;
+      ">
+        <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#3b82f6,#60a5fa);border-radius:16px 16px 0 0;"></div>
+        <div style="position:absolute;top:1rem;right:1.2rem;background:rgba(59,130,246,0.15);border:1px solid rgba(59,130,246,0.3);color:#93c5fd;padding:.2rem .7rem;border-radius:999px;font-size:.6rem;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;text-transform:uppercase;">👤 Member</div>
+
+        <div style="width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#3b82f6,#60a5fa);display:flex;align-items:center;justify-content:center;font-size:1.6rem;margin-bottom:1.2rem;box-shadow:0 0 20px rgba(59,130,246,0.3);">👨‍🎓</div>
+
+        <div style="font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:#fff;margin-bottom:.3rem;">S. Sairam</div>
+        <div style="font-size:.72rem;color:var(--accent2);font-family:'IBM Plex Mono',monospace;letter-spacing:.5px;margin-bottom:1.2rem;">TEAM MEMBER · RESEARCHER</div>
+
+        <div style="display:flex;flex-direction:column;gap:.7rem;">
+          <div style="display:flex;align-items:center;gap:.8rem;">
+            <div style="width:28px;height:28px;border-radius:8px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">🪪</div>
+            <div>
+              <div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-family:'IBM Plex Mono',monospace;">Roll Number</div>
+              <div style="font-size:.9rem;font-weight:700;color:#fff;font-family:'IBM Plex Mono',monospace;letter-spacing:1px;">2200033198</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.8rem;">
+            <div style="width:28px;height:28px;border-radius:8px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">🎓</div>
+            <div>
+              <div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-family:'IBM Plex Mono',monospace;">Institution</div>
+              <div style="font-size:.82rem;font-weight:600;color:var(--text);">KL University</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.8rem;">
+            <div style="width:28px;height:28px;border-radius:8px;background:rgba(59,130,246,0.12);border:1px solid rgba(59,130,246,0.25);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">📋</div>
+            <div>
+              <div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-family:'IBM Plex Mono',monospace;">Subject</div>
+              <div style="font-size:.82rem;font-weight:600;color:var(--text);">Capstone Project 2</div>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.8rem;margin-top:.3rem;padding:.6rem .9rem;background:rgba(59,130,246,0.08);border:1px solid rgba(59,130,246,0.3);border-radius:8px;">
+            <div style="width:28px;height:28px;border-radius:8px;background:rgba(59,130,246,0.18);border:1px solid rgba(59,130,246,0.4);display:flex;align-items:center;justify-content:center;font-size:.75rem;flex-shrink:0;">🎖️</div>
+            <div>
+              <div style="font-size:.6rem;color:#93c5fd;text-transform:uppercase;letter-spacing:1px;font-family:'IBM Plex Mono',monospace;font-weight:600;">Guide Name</div>
+              <div style="font-size:.86rem;font-weight:700;color:#93c5fd;">V. Chandra Prakash Sir</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Project Description -->
+    <div style="background:linear-gradient(135deg,rgba(16,185,129,0.07),rgba(59,130,246,0.05));border:1px solid rgba(16,185,129,0.2);border-radius:14px;padding:1.6rem 2rem;margin-bottom:1.5rem;">
+      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:#6ee7b7;font-family:'IBM Plex Mono',monospace;margin-bottom:.8rem;">📝 Project Abstract</div>
+      <p style="font-size:.84rem;color:var(--muted);line-height:1.9;margin:0;">
+        This Capstone Project 2 presents a comprehensive, data-driven health analytics web dashboard focused on <strong style="color:var(--text);">Age-related Macular Degeneration (AMD)</strong> and <strong style="color:var(--text);">Vitamin A Deficiency (VAD)</strong> among older adults in India (age 60+). The dashboard integrates multi-source epidemiological data from ICMR, NFHS-5, WHO, and NPCB — covering prevalence statistics, state-wise burden, risk factor analysis, clinical staging, prescription protocols, prevention strategies, and a nutrient deficiency symptom verification module. Built entirely as an interactive single-page application with dynamic visualizations, filterable symptom cards, and India-specific clinical context, this project bridges the gap between complex medical data and accessible health education.
+      </p>
+    </div>
+
+    <!-- Contribution breakdown -->
+    <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1.5rem;">
+      <div style="font-size:.65rem;text-transform:uppercase;letter-spacing:2px;color:var(--muted);font-family:'IBM Plex Mono',monospace;margin-bottom:1.2rem;">🔧 Module Contributions</div>
+      <table class="data-table">
+        <thead><tr><th>Dashboard Module</th><th>Description</th><th>Contributor</th></tr></thead>
+        <tbody>
+          <tr><td>📊 Overview (Older Adults)</td><td>KPI metrics, AMD/VAD prevalence, co-morbidities for 60+ population</td><td><span class="pill pill-yellow">M. Bhargav</span></td></tr>
+          <tr><td>🔬 AMD Analysis</td><td>Risk factor analysis, AMD staging, state-wise burden charts</td><td><span class="pill pill-yellow">M. Bhargav</span></td></tr>
+          <tr><td>💊 Vitamin A Deficiency</td><td>WHO staging, dietary sources, supplementation protocols</td><td><span class="pill pill-blue">S. Sairam</span></td></tr>
+          <tr><td>🗺️ State-wise Data</td><td>Heatmap, regional burden, BIMARU state analysis</td><td><span class="pill pill-blue">S. Sairam</span></td></tr>
+          <tr><td>📋 Prescription & Treatment</td><td>AREDS2, anti-VEGF, ayurvedic protocols, meal planning</td><td><span class="pill pill-yellow">M. Bhargav</span></td></tr>
+          <tr><td>🛡️ Prevention Protocol</td><td>Lifestyle modifications, national programs, screening guidelines</td><td><span class="pill pill-blue">S. Sairam</span></td></tr>
+          <tr><td>🩺 Symptom Checker</td><td>Multi-nutrient symptom cards, self-assessment, filter module</td><td><span class="pill" style="background:rgba(139,92,246,0.15);color:#c4b5fd;">Both</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+  </section>
+  <!-- ===== END TEAM DETAILS ===== -->
+
+  <footer>
+    <div class="wrapper">
+      Data Sources: NFHS-5 (2019–21) · ICMR · WHO India · NPCB Annual Report 2023 · AIIMS Clinical Guidelines · AIOS Protocols<br>
+      <span style="color:rgba(255,255,255,0.2);margin-top:.3rem;display:block;">This dashboard is for educational and research purposes. Always consult a qualified ophthalmologist for diagnosis and treatment.</span>
+    </div>
+  </footer>
+</div>
+
+<script>
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  event.target.classList.add('active');
+
+  // Animate bars on visible
+  setTimeout(() => {
+    document.querySelectorAll('.bar-fill').forEach(b => {
+      const w = b.style.width;
+      b.style.width = '0%';
+      setTimeout(() => { b.style.width = w; }, 50);
+    });
+  }, 50);
+}
+
+// Initial bar animation
+window.addEventListener('load', () => {
+  document.querySelectorAll('.bar-fill').forEach((b, i) => {
+    const w = b.style.width;
+    b.style.width = '0%';
+    setTimeout(() => { b.style.width = w; }, 100 + i * 80);
+  });
+});
+
+function filterSymptoms(nutrient, el) {
+  // Update active pill
+  document.querySelectorAll('.nf-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+
+  // Show/hide cards
+  document.querySelectorAll('.symptom-card').forEach(card => {
+    if (nutrient === 'all' || card.dataset.nutrient === nutrient) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>
