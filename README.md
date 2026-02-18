@@ -1,2 +1,2 @@
-# A-Cross-Sectional-Analysis-of-AMD-and-Nutrient-deficiency
+# A Cross Sectional Analysis of AMD and Nutrient-deficiency
 This Capstone Project 2 presents a comprehensive, data-driven health analytics web dashboard focused on Age-related Macular Degeneration (AMD) and Vitamin A Deficiency (VAD) among older adults in India (age 60+). The dashboard integrates multi-source epidemiological data from ICMR, NFHS-5, WHO, and NPCB — covering prevalence statistics.
